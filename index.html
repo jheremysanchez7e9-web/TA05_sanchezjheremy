@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio de [Tu Nombre]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ESTILOS SIMPLES (CSS) --- */
+        :root {
+            --fondo: #121212;
+            --texto: #e0e0e0;
+            --acento: #3b82f6; /* Color azul brillante */
+            --tarjeta: #1e1e1e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px; /* Mantiene el contenido centrado y legible */
+            margin: 0 auto;
+        }
+
+        /* Encabezado */
+        header {
+            text-align: center;
+            padding: 60px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: var(--acento);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        /* Secciones */
+        section { margin-bottom: 50px; }
+        h2 { border-left: 4px solid var(--acento); padding-left: 10px; margin-bottom: 20px; }
+
+        /* Lista de Proyectos */
+        .project-card {
+            background-color: var(--tarjeta);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+
+        .project-card h3 { margin-bottom: 5px; color: #fff; }
+        .project-card a { color: var(--acento); text-decoration: none; }
+        .project-card a:hover { text-decoration: underline; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 50px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Hola, soy [Tu Nombre] 👋</h1>
+        <p class="subtitle">Desarrollador Web | Estudiante | Entusiasta de la Tecnología</p>
+        
+        <div class="social-links">
+            <a href="https://github.com/tu-usuario" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/tu-usuario" target="_blank">LinkedIn</a>
+            <a href="mailto:tucorreo@ejemplo.com">Email</a>
+        </div>
+    </header>
+
+    <section>
+        <h2>Sobre mí</h2>
+        <p>
+            ¡Bienvenido a mi portfolio! Soy un apasionado por crear cosas en internet. 
+            Actualmente estoy aprendiendo [Tecnología que aprendes, ej: JavaScript y Python] 
+            y buscando oportunidades para mejorar mis habilidades.
+        </p>
+    </section>
+
+    <section>
+        <h2>Mis Proyectos</h2>
+
+        <div class="project-card">
+            <h3>🚀 Nombre del Proyecto 1</h3>
+            <p>Una breve descripción de qué hace este proyecto. Por ejemplo: Una lista de tareas hecha con JavaScript.</p>
+            <br>
+            <a href="https://github.com/tu-usuario/proyecto-1" target="_blank">Ver código en GitHub &rarr;</a>
+        </div>
+
+        <div class="project-card">
+            <h3>🌐 Mi primer sitio web</h3>
+            <p>Esta es la página que creé cuando empecé a estudiar HTML y CSS.</p>
+            <br>
+            <a href="https://github.com/tu-usuario/proyecto-2" target="_blank">Ver código en GitHub &rarr;</a>
+        </div>
+
+        </section>
+
+    <footer>
+        <p>© 2024 [Tu Nombre]. Construido para GitHub Pages.</p>
+    </footer>
+
+</body>
+</html>
