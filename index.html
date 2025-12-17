@@ -1,60 +1,299 @@
--<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TA05_sanchezjheremy</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Estilo mínimo para que se lea limpio */
-        body {
-            font-family: sans-serif; /* Letra moderna */
-            max-width: 650px;        /* Ancho máximo para leer cómodo */
-            margin: 40px auto;       /* Centrado en la pantalla */
-            padding: 0 20px;
-            line-height: 1.6;
-            color: #333;
-        }
-        h1, h2 { color: #000; }
-        a { color: #0066cc; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        li { margin-bottom: 10px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jheremy Portfolio - Clean & Interactive</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<style>
+/* --- 1. VARIABLES & TEMAS --- */
+:root {
+    /* Modo Oscuro (Default) */
+    --bg-body: #050505;
+    --bg-card: #111111;
+    --bg-hover: #1a1a1a;
+    --border: rgba(255, 255, 255, 0.1);
+    --accent: #2d88ff;
+    --accent-glow: rgba(45, 136, 255, 0.4);
+    --text-main: #ffffff;
+    --text-sec: #888888;
+    --shadow: 0 10px 40px -10px rgba(0,0,0,0.8);
+}
+
+body.light-theme {
+    /* Modo Claro */
+    --bg-body: #f0f2f5;
+    --bg-card: #ffffff;
+    --bg-hover: #f7f8fa;
+    --border: rgba(0, 0, 0, 0.08);
+    --accent: #1877f2;
+    --accent-glow: rgba(24, 119, 242, 0.3);
+    --text-main: #050505;
+    --text-sec: #65676b;
+    --shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: background 0.3s ease, color 0.3s ease, border 0.3s ease; }
+
+body {
+    background-color: var(--bg-body);
+    /* Fondo limpio sin puntos para más minimalismo */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.container {
+    width: 100%;
+    max-width: 900px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* --- HEADER --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.profile-group {
+    display: flex; align-items: center; gap: 15px;
+}
+.avatar {
+    width: 45px; height: 45px;
+    background: var(--accent); color: white;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.2rem;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+.profile-info h3 { color: var(--text-main); font-size: 1rem; }
+.profile-info span { color: var(--text-sec); font-size: 0.8rem; }
+
+/* Controles Derecha */
+.controls { display: flex; align-items: center; gap: 12px; }
+
+.date-badge {
+    color: var(--text-sec); font-size: 0.85rem; font-weight: 500;
+    padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+}
+
+/* BOTÓN TEMA INTERACTIVO */
+.btn-icon {
+    width: 40px; height: 40px;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text-main);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote */
+}
+.btn-icon:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+.btn-icon:active { transform: scale(0.9); } /* Efecto click */
+
+/* --- BUSCADOR --- */
+.search-wrapper {
+    position: relative;
+    width: 100%; max-width: 300px;
+}
+.search-wrapper i {
+    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+    color: var(--text-sec); pointer-events: none;
+}
+.search-input {
+    width: 100%; padding: 12px 12px 12px 40px;
+    background: var(--bg-hover); border: 1px solid transparent;
+    border-radius: 12px; color: var(--text-main); outline: none;
+    transition: all 0.3s;
+}
+.search-input:focus {
+    border-color: var(--accent);
+    background: var(--bg-card);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    text-align: center; padding: 20px 0;
+}
+.hero h1 {
+    font-size: 2.5rem; color: var(--text-main); margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+.hero p { color: var(--text-sec); max-width: 600px; margin: 0 auto 25px; line-height: 1.6; }
+
+/* BOTÓN PRINCIPAL (CTA) */
+.btn-primary {
+    background: var(--accent); color: white;
+    padding: 14px 32px; border: none; border-radius: 12px;
+    font-weight: 600; font-size: 1rem; cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 15px var(--accent-glow);
+}
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px var(--accent-glow);
+}
+.btn-primary:active { transform: scale(0.95); }
+
+/* --- GRID PROYECTOS --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* TARJETA INTERACTIVA */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    background: var(--bg-hover);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+}
+
+.card-icon {
+    width: 50px; height: 50px;
+    background: rgba(45, 136, 255, 0.1); color: var(--accent);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 15px;
+    transition: 0.3s;
+}
+.card:hover .card-icon {
+    background: var(--accent); color: white;
+    transform: rotate(10deg);
+}
+
+.card h3 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 5px; }
+.card p { color: var(--text-sec); font-size: 0.9rem; }
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .header { flex-direction: column; align-items: flex-start; }
+    .controls { width: 100%; justify-content: space-between; }
+    .search-wrapper { max-width: 100%; }
+    .hero h1 { font-size: 2rem; }
+}
+</style>
 </head>
+
 <body>
 
-    <h1>Hello, I'm Jheremy S Sánchez</h1>
-    <p>
-        Bienvenido a mi portfolio personal en GitHub.
-        Aquí comparto mis proyectos y experimentos de código.
-    </p>
+<div class="container">
+   
+    <header class="header">
+        <div class="profile-group">
+            <div class="avatar">J</div>
+            <div class="profile-info">
+                <h3>Jheremy S.</h3>
+                <span>Developer</span>
+            </div>
+        </div>
 
-    <hr> <h2>Mis Proyectos</h2>
-    <ul>
-        <li>
-            <strong><a href="https://github.com/jheremysanchez7e9-web/proyecto-1">HTML X CSS</a></strong><br>
-          Una web simple hecha con HTML y CSS.
-        </li>
-        <li>
-            <strong><a href="https://github.com/jheremysanchez7e9-web/proyecto-2">Python</a></strong><br>
-            Un script en Python para automatizar tareas.
-        </li>
-        <li>
-            <strong><a href="#">Próximamente...</a></strong><br>
-            Estoy trabajando en algo nuevo.
-        </li>
-    </ul>
+        <div class="controls">
+            <div class="date-badge" id="date">...</div>
+            <button class="btn-icon" id="theme-toggle" title="Change Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
 
-    <hr>
+    <div class="search-wrapper">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search" class="search-input" placeholder="Search projects (e.g. Python)...">
+    </div>
 
-    <h2>Contacto</h2>
-    <p>
-        Puedes encontrarme en:
-        <a href="https://github.com/jheremysanchez7e9-web">GitHub</a> | 
-        <a href="https://linkedin.com/in/sanchezjheremy">LinkedIn</a> | 
-        <a href="mailto:jheremy.sanchez.7e9@itb.cat">Email</a>
-    </p
-        </footer>
-<script src="script.js"></script>
+    <section class="hero">
+        <h1>Welcome to my Portfolio</h1>
+        <p>Minimalist interface designed for clarity. Explore my projects below.</p>
+        <button class="btn-primary" onclick="alert('Funciona perfectamente!')">View All Projects</button>
+    </section>
+
+    <div class="grid" id="grid">
+       
+        <div class="card" data-tags="html css web">
+            <div class="card-icon"><i class="fab fa-html5"></i></div>
+            <h3>HTML Structure</h3>
+            <p>Semantic web layout</p>
+        </div>
+
+        <div class="card" data-tags="python backend script">
+            <div class="card-icon"><i class="fab fa-python"></i></div>
+            <h3>Python Scripts</h3>
+            <p>Automation tools</p>
+        </div>
+
+        <div class="card" data-tags="sql database data">
+            <div class="card-icon"><i class="fas fa-database"></i></div>
+            <h3>SQL Database</h3>
+            <p>Data management</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // 1. FECHA
+    document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric'
+    });
+
+    // 2. BUSCADOR
+    document.getElementById('search').addEventListener('input', (e) => {
+        const val = e.target.value.toLowerCase();
+        document.querySelectorAll('.card').forEach(card => {
+            const tags = card.dataset.tags;
+            card.style.display = tags.includes(val) ? 'block' : 'none';
+        });
+    });
+
+    // 3. DARK / LIGHT MODE
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        const icon = toggle.querySelector('i');
+       
+        if (document.body.classList.contains('light-theme')) {
+            icon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
+        }
+    });
+</script>
+
 </body>
 </html>
