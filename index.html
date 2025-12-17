@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jheremy Portfolio - Clean & Interactive</title>
+<title>Jheremy Portfolio - Multi-Language</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
@@ -13,258 +13,256 @@
     /* Modo Oscuro (Default) */
     --bg-body: #050505;
     --bg-card: #111111;
+    --bg-sidebar: #0a0a0a;
     --bg-hover: #1a1a1a;
     --border: rgba(255, 255, 255, 0.1);
     --accent: #2d88ff;
     --accent-glow: rgba(45, 136, 255, 0.4);
     --text-main: #ffffff;
     --text-sec: #888888;
-    --shadow: 0 10px 40px -10px rgba(0,0,0,0.8);
 }
 
 body.light-theme {
     /* Modo Claro */
-    --bg-body: #f0f2f5;
+    --bg-body: #f8f9fa;
     --bg-card: #ffffff;
-    --bg-hover: #f7f8fa;
-    --border: rgba(0, 0, 0, 0.08);
+    --bg-sidebar: #ffffff;
+    --bg-hover: #f0f2f5;
+    --border: rgba(0, 0, 0, 0.1);
     --accent: #1877f2;
     --accent-glow: rgba(24, 119, 242, 0.3);
     --text-main: #050505;
     --text-sec: #65676b;
-    --shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: background 0.3s ease, color 0.3s ease, border 0.3s ease; }
 
 body {
     background-color: var(--bg-body);
-    /* Fondo limpio sin puntos para más minimalismo */
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    overflow-x: hidden;
 }
 
-/* --- CONTENEDOR PRINCIPAL --- */
-.container {
+/* --- LAYOUT FULL WIDTH --- */
+.main-wrapper {
     width: 100%;
-    max-width: 900px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: var(--shadow);
+    max-width: 1400px; /* Un poco más ancho para pantallas grandes */
+    margin: 0 auto;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
     animation: fadeIn 0.8s ease-out;
 }
 
+/* --- SIDEBAR (BARRA LATERAL) --- */
+.sidebar-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 998;
+    opacity: 0; visibility: hidden; transition: 0.3s;
+    backdrop-filter: blur(3px);
+}
+.sidebar-overlay.active { opacity: 1; visibility: visible; }
+
+.sidebar {
+    position: fixed; top: 0; left: 0; height: 100%; width: 280px;
+    background: var(--bg-sidebar); border-right: 1px solid var(--border);
+    z-index: 999;
+    transform: translateX(-100%); transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: 30px; display: flex; flex-direction: column; gap: 20px;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.2);
+}
+.sidebar.active { transform: translateX(0); }
+
+.sidebar-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+}
+.close-btn { background: none; border: none; font-size: 1.5rem; color: var(--text-main); cursor: pointer; }
+
+.nav-link {
+    text-decoration: none; color: var(--text-sec); font-size: 1.1rem;
+    padding: 10px; border-radius: 8px; transition: 0.2s;
+}
+.nav-link:hover { background: var(--bg-hover); color: var(--text-main); }
+.nav-link.active { color: var(--accent); font-weight: 600; background: rgba(45, 136, 255, 0.1); }
+
+
 /* --- HEADER --- */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 20px; border-bottom: 1px solid var(--border);
 }
 
-.profile-group {
-    display: flex; align-items: center; gap: 15px;
+.left-section { display: flex; align-items: center; gap: 20px; }
+
+.menu-btn {
+    background: transparent; border: none; color: var(--text-main);
+    font-size: 1.4rem; cursor: pointer; padding: 5px;
 }
+
+.profile-group { display: flex; align-items: center; gap: 15px; }
 .avatar {
-    width: 45px; height: 45px;
-    background: var(--accent); color: white;
+    width: 40px; height: 40px; background: var(--accent); color: white;
     border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 1.2rem;
-    box-shadow: 0 0 15px var(--accent-glow);
+    font-weight: 700; box-shadow: 0 0 15px var(--accent-glow);
 }
 .profile-info h3 { color: var(--text-main); font-size: 1rem; }
 .profile-info span { color: var(--text-sec); font-size: 0.8rem; }
 
 /* Controles Derecha */
-.controls { display: flex; align-items: center; gap: 12px; }
+.controls { display: flex; align-items: center; gap: 15px; }
 
 .date-badge {
     color: var(--text-sec); font-size: 0.85rem; font-weight: 500;
-    padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+    display: none; /* Oculto en móvil */
 }
 
-/* BOTÓN TEMA INTERACTIVO */
+/* SELECTOR DE IDIOMA */
+.lang-select {
+    background: var(--bg-body); color: var(--text-main);
+    border: 1px solid var(--border); padding: 8px 12px;
+    border-radius: 10px; font-size: 0.85rem; outline: none; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+.lang-select:focus { border-color: var(--accent); }
+
 .btn-icon {
-    width: 40px; height: 40px;
-    background: transparent; border: 1px solid var(--border);
-    border-radius: 10px; color: var(--text-main);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote */
+    width: 40px; height: 40px; background: transparent; border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text-main); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
 }
-.btn-icon:hover {
-    background: var(--bg-hover);
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-2px);
-}
-.btn-icon:active { transform: scale(0.9); } /* Efecto click */
+.btn-icon:hover { background: var(--bg-hover); color: var(--accent); border-color: var(--accent); }
 
-/* --- BUSCADOR --- */
-.search-wrapper {
-    position: relative;
-    width: 100%; max-width: 300px;
-}
-.search-wrapper i {
-    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
-    color: var(--text-sec); pointer-events: none;
-}
-.search-input {
-    width: 100%; padding: 12px 12px 12px 40px;
-    background: var(--bg-hover); border: 1px solid transparent;
-    border-radius: 12px; color: var(--text-main); outline: none;
-    transition: all 0.3s;
-}
-.search-input:focus {
-    border-color: var(--accent);
-    background: var(--bg-card);
-    box-shadow: 0 0 0 4px var(--accent-glow);
-}
 
-/* --- HERO SECTION --- */
-.hero {
-    text-align: center; padding: 20px 0;
-}
-.hero h1 {
-    font-size: 2.5rem; color: var(--text-main); margin-bottom: 10px;
-    letter-spacing: -1px;
-}
-.hero p { color: var(--text-sec); max-width: 600px; margin: 0 auto 25px; line-height: 1.6; }
+/* --- HERO & CONTENT --- */
+.hero { text-align: center; padding: 60px 0; }
+.hero h1 { font-size: 3rem; color: var(--text-main); margin-bottom: 15px; letter-spacing: -1px; }
+.hero p { color: var(--text-sec); max-width: 600px; margin: 0 auto 30px; line-height: 1.6; font-size: 1.1rem; }
 
-/* BOTÓN PRINCIPAL (CTA) */
 .btn-primary {
-    background: var(--accent); color: white;
-    padding: 14px 32px; border: none; border-radius: 12px;
-    font-weight: 600; font-size: 1rem; cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 5px 15px var(--accent-glow);
+    background: var(--accent); color: white; padding: 14px 32px;
+    border: none; border-radius: 12px; font-weight: 600; font-size: 1rem;
+    cursor: pointer; transition: 0.2s; box-shadow: 0 5px 15px var(--accent-glow);
 }
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px var(--accent-glow);
-}
-.btn-primary:active { transform: scale(0.95); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--accent-glow); }
 
-/* --- GRID PROYECTOS --- */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+/* --- GRID --- */
+.search-wrapper { margin: 0 auto 40px; width: 100%; max-width: 400px; position: relative; }
+.search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-sec); }
+.search-input {
+    width: 100%; padding: 14px 14px 14px 45px; background: var(--bg-hover);
+    border: 1px solid var(--border); border-radius: 12px; color: var(--text-main);
+    outline: none; font-size: 1rem; transition: 0.3s;
 }
+.search-input:focus { border-color: var(--accent); background: var(--bg-card); }
 
-/* TARJETA INTERACTIVA */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+
 .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 30px; cursor: pointer; position: relative;
+    transition: 0.3s ease; display: flex; flex-direction: column; gap: 15px;
 }
-
-.card:hover {
-    border-color: var(--accent);
-    transform: translateY(-5px);
-    background: var(--bg-hover);
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
-}
+.card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2); }
 
 .card-icon {
-    width: 50px; height: 50px;
-    background: rgba(45, 136, 255, 0.1); color: var(--accent);
-    border-radius: 12px; display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; margin-bottom: 15px;
-    transition: 0.3s;
+    width: 50px; height: 50px; background: rgba(45, 136, 255, 0.1);
+    color: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; transition: 0.3s;
 }
-.card:hover .card-icon {
-    background: var(--accent); color: white;
-    transform: rotate(10deg);
-}
+.card:hover .card-icon { background: var(--accent); color: white; }
 
-.card h3 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 5px; }
-.card p { color: var(--text-sec); font-size: 0.9rem; }
+.card h3 { color: var(--text-main); margin: 0; font-size: 1.2rem; }
+.card p { color: var(--text-sec); margin: 0; font-size: 0.95rem; }
 
-/* Animación de entrada */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-    .header { flex-direction: column; align-items: flex-start; }
-    .controls { width: 100%; justify-content: space-between; }
-    .search-wrapper { max-width: 100%; }
-    .hero h1 { font-size: 2rem; }
-}
+@media (min-width: 768px) { .date-badge { display: block; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-   
-    <header class="header">
-        <div class="profile-group">
-            <div class="avatar">J</div>
-            <div class="profile-info">
-                <h3>Jheremy S.</h3>
-                <span>Developer</span>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3 style="color:var(--text-main)">Menu</h3>
+            <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+        </div>
+        <a href="#" class="nav-link active"><i class="fas fa-home"></i> <span data-key="nav_home">Home</span></a>
+        <a href="#" class="nav-link"><i class="fas fa-layer-group"></i> <span data-key="nav_proj">Projects</span></a>
+        <a href="#" class="nav-link"><i class="fas fa-user"></i> <span data-key="nav_about">About</span></a>
+    </aside>
+
+    <div class="main-wrapper">
+        
+        <header class="header">
+            <div class="left-section">
+                <button class="menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="profile-group">
+                    <div class="avatar">J</div>
+                    <div class="profile-info">
+                        <h3>Jheremy S.</h3>
+                        <span>Developer</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="date-badge" id="date">...</div>
+                
+                <select class="lang-select" id="langSelect" onchange="changeLanguage()">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="it">Italiano</option>
+                    <option value="pt">Português</option>
+                </select>
+
+                <button class="btn-icon" id="theme-toggle" title="Switch Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1 data-key="hero_title">Welcome to my Portfolio</h1>
+            <p data-key="hero_desc">Minimalist interface designed for clarity. Explore my projects below.</p>
+            <button class="btn-primary" data-key="hero_btn">View All Projects</button>
+        </section>
+
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search" class="search-input" placeholder="Search projects...">
+        </div>
+
+        <div class="grid" id="grid">
+            <div class="card" data-tags="html css web">
+                <div class="card-icon"><i class="fab fa-html5"></i></div>
+                <div>
+                    <h3 data-key="card1_title">HTML Structure</h3>
+                    <p data-key="card1_desc">Semantic web layout</p>
+                </div>
+            </div>
+            <div class="card" data-tags="python backend script">
+                <div class="card-icon"><i class="fab fa-python"></i></div>
+                <div>
+                    <h3 data-key="card2_title">Python Scripts</h3>
+                    <p data-key="card2_desc">Automation tools</p>
+                </div>
+            </div>
+            <div class="card" data-tags="sql database data">
+                <div class="card-icon"><i class="fas fa-database"></i></div>
+                <div>
+                    <h3 data-key="card3_title">SQL Database</h3>
+                    <p data-key="card3_desc">Data management</p>
+                </div>
             </div>
         </div>
 
-        <div class="controls">
-            <div class="date-badge" id="date">...</div>
-            <button class="btn-icon" id="theme-toggle" title="Change Theme">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
-    </header>
-
-    <div class="search-wrapper">
-        <i class="fas fa-search"></i>
-        <input type="text" id="search" class="search-input" placeholder="Search projects (e.g. Python)...">
     </div>
-
-    <section class="hero">
-        <h1>Welcome to my Portfolio</h1>
-        <p>Minimalist interface designed for clarity. Explore my projects below.</p>
-        <button class="btn-primary" onclick="alert('Funciona perfectamente!')">View All Projects</button>
-    </section>
-
-    <div class="grid" id="grid">
-       
-        <div class="card" data-tags="html css web">
-            <div class="card-icon"><i class="fab fa-html5"></i></div>
-            <h3>HTML Structure</h3>
-            <p>Semantic web layout</p>
-        </div>
-
-        <div class="card" data-tags="python backend script">
-            <div class="card-icon"><i class="fab fa-python"></i></div>
-            <h3>Python Scripts</h3>
-            <p>Automation tools</p>
-        </div>
-
-        <div class="card" data-tags="sql database data">
-            <div class="card-icon"><i class="fas fa-database"></i></div>
-            <h3>SQL Database</h3>
-            <p>Data management</p>
-        </div>
-
-    </div>
-
-</div>
 
 <script>
     // 1. FECHA
@@ -272,27 +270,109 @@ body {
         month: 'short', day: 'numeric', year: 'numeric'
     });
 
-    // 2. BUSCADOR
-    document.getElementById('search').addEventListener('input', (e) => {
-        const val = e.target.value.toLowerCase();
-        document.querySelectorAll('.card').forEach(card => {
-            const tags = card.dataset.tags;
-            card.style.display = tags.includes(val) ? 'block' : 'none';
-        });
-    });
+    // 2. TOGGLE SIDEBAR
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.querySelector('.sidebar-overlay').classList.toggle('active');
+    }
 
-    // 3. DARK / LIGHT MODE
+    // 3. TEMA OSCURO/CLARO
     const toggle = document.getElementById('theme-toggle');
     toggle.addEventListener('click', () => {
         document.body.classList.toggle('light-theme');
         const icon = toggle.querySelector('i');
-       
-        if (document.body.classList.contains('light-theme')) {
-            icon.classList.replace('fa-moon', 'fa-sun');
-        } else {
-            icon.classList.replace('fa-sun', 'fa-moon');
-        }
+        icon.classList.replace(
+            document.body.classList.contains('light-theme') ? 'fa-moon' : 'fa-sun',
+            document.body.classList.contains('light-theme') ? 'fa-sun' : 'fa-moon'
+        );
     });
+
+    // 4. BUSCADOR
+    document.getElementById('search').addEventListener('input', (e) => {
+        const val = e.target.value.toLowerCase();
+        document.querySelectorAll('.card').forEach(card => {
+            const tags = card.dataset.tags;
+            card.style.display = tags.includes(val) ? 'flex' : 'none';
+        });
+    });
+
+    // 5. SISTEMA MULTI-LENGUAJE
+    const translations = {
+        en: {
+            nav_home: "Home", nav_proj: "Projects", nav_about: "About",
+            hero_title: "Welcome to my Portfolio",
+            hero_desc: "Minimalist interface designed for clarity. Explore my projects below.",
+            hero_btn: "View All Projects",
+            search_ph: "Search projects...",
+            card1_title: "HTML Structure", card1_desc: "Semantic web layout",
+            card2_title: "Python Scripts", card2_desc: "Automation tools",
+            card3_title: "SQL Database", card3_desc: "Data management"
+        },
+        es: {
+            nav_home: "Inicio", nav_proj: "Proyectos", nav_about: "Sobre Mí",
+            hero_title: "Bienvenido a mi Portafolio",
+            hero_desc: "Interfaz minimalista diseñada para la claridad. Explora mis proyectos.",
+            hero_btn: "Ver Proyectos",
+            search_ph: "Buscar proyectos...",
+            card1_title: "Estructura HTML", card1_desc: "Diseño web semántico",
+            card2_title: "Scripts Python", card2_desc: "Herramientas de automatización",
+            card3_title: "Base de Datos SQL", card3_desc: "Gestión de datos"
+        },
+        fr: {
+            nav_home: "Accueil", nav_proj: "Projets", nav_about: "À Propos",
+            hero_title: "Bienvenue sur mon Portfolio",
+            hero_desc: "Interface minimaliste conçue pour la clarté. Explorez mes projets.",
+            hero_btn: "Voir les Projets",
+            search_ph: "Rechercher des projets...",
+            card1_title: "Structure HTML", card1_desc: "Mise en page web sémantique",
+            card2_title: "Scripts Python", card2_desc: "Outils d'automatisation",
+            card3_title: "Base de Données SQL", card3_desc: "Gestion des données"
+        },
+        de: {
+            nav_home: "Startseite", nav_proj: "Projekte", nav_about: "Über mich",
+            hero_title: "Willkommen in meinem Portfolio",
+            hero_desc: "Minimalistische Benutzeroberfläche für Klarheit. Entdecken Sie meine Projekte.",
+            hero_btn: "Alle Projekte Ansehen",
+            search_ph: "Projekte suchen...",
+            card1_title: "HTML Struktur", card1_desc: "Semantisches Webdesign",
+            card2_title: "Python Skripte", card2_desc: "Automatisierungstools",
+            card3_title: "SQL Datenbank", card3_desc: "Datenmanagement"
+        },
+        it: {
+            nav_home: "Home", nav_proj: "Progetti", nav_about: "Chi Sono",
+            hero_title: "Benvenuto nel mio Portfolio",
+            hero_desc: "Interfaccia minimalista progettata per la chiarezza. Esplora i miei progetti.",
+            hero_btn: "Vedi Progetti",
+            search_ph: "Cerca progetti...",
+            card1_title: "Struttura HTML", card1_desc: "Layout web semantico",
+            card2_title: "Script Python", card2_desc: "Strumenti di automazione",
+            card3_title: "Database SQL", card3_desc: "Gestione dati"
+        },
+        pt: {
+            nav_home: "Início", nav_proj: "Projetos", nav_about: "Sobre",
+            hero_title: "Bem-vindo ao meu Portfólio",
+            hero_desc: "Interface minimalista projetada para clareza. Explore meus projetos abaixo.",
+            hero_btn: "Ver Projetos",
+            search_ph: "Pesquisar projetos...",
+            card1_title: "Estrutura HTML", card1_desc: "Layout web semântico",
+            card2_title: "Scripts Python", card2_desc: "Ferramentas de automação",
+            card3_title: "Banco de Dados SQL", card3_desc: "Gerenciamento de dados"
+        }
+    };
+
+    function changeLanguage() {
+        const lang = document.getElementById('langSelect').value;
+        const texts = translations[lang];
+
+        // 1. Placeholder del buscador
+        document.getElementById('search').placeholder = texts.search_ph;
+
+        // 2. Todos los elementos con 'data-key'
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (texts[key]) el.innerText = texts[key];
+        });
+    }
 </script>
 
 </body>
