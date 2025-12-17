@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jheremy Portfolio - Multi-Language</title>
+<title>Jheremy Portfolio - Full Clean</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
@@ -41,21 +41,23 @@ body {
     background-color: var(--bg-body);
     min-height: 100vh;
     overflow-x: hidden;
+    display: flex; flex-direction: column;
 }
 
 /* --- LAYOUT FULL WIDTH --- */
 .main-wrapper {
     width: 100%;
-    max-width: 1400px; /* Un poco más ancho para pantallas grandes */
+    max-width: 1400px;
     margin: 0 auto;
     padding: 40px 20px;
+    flex: 1; /* Empuja el footer hacia abajo si hay poco contenido */
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 60px; /* Separación entre secciones */
     animation: fadeIn 0.8s ease-out;
 }
 
-/* --- SIDEBAR (BARRA LATERAL) --- */
+/* --- SIDEBAR --- */
 .sidebar-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.5); z-index: 998;
@@ -81,7 +83,7 @@ body {
 
 .nav-link {
     text-decoration: none; color: var(--text-sec); font-size: 1.1rem;
-    padding: 10px; border-radius: 8px; transition: 0.2s;
+    padding: 10px; border-radius: 8px; transition: 0.2s; display: block;
 }
 .nav-link:hover { background: var(--bg-hover); color: var(--text-main); }
 .nav-link.active { color: var(--accent); font-weight: 600; background: rgba(45, 136, 255, 0.1); }
@@ -111,13 +113,7 @@ body {
 
 /* Controles Derecha */
 .controls { display: flex; align-items: center; gap: 15px; }
-
-.date-badge {
-    color: var(--text-sec); font-size: 0.85rem; font-weight: 500;
-    display: none; /* Oculto en móvil */
-}
-
-/* SELECTOR DE IDIOMA */
+.date-badge { color: var(--text-sec); font-size: 0.85rem; font-weight: 500; display: none; }
 .lang-select {
     background: var(--bg-body); color: var(--text-main);
     border: 1px solid var(--border); padding: 8px 12px;
@@ -125,7 +121,6 @@ body {
     font-family: 'Inter', sans-serif;
 }
 .lang-select:focus { border-color: var(--accent); }
-
 .btn-icon {
     width: 40px; height: 40px; background: transparent; border: 1px solid var(--border);
     border-radius: 10px; color: var(--text-main); cursor: pointer;
@@ -134,8 +129,8 @@ body {
 .btn-icon:hover { background: var(--bg-hover); color: var(--accent); border-color: var(--accent); }
 
 
-/* --- HERO & CONTENT --- */
-.hero { text-align: center; padding: 60px 0; }
+/* --- HERO --- */
+.hero { text-align: center; padding: 60px 0 20px; }
 .hero h1 { font-size: 3rem; color: var(--text-main); margin-bottom: 15px; letter-spacing: -1px; }
 .hero p { color: var(--text-sec); max-width: 600px; margin: 0 auto 30px; line-height: 1.6; font-size: 1.1rem; }
 
@@ -143,11 +138,12 @@ body {
     background: var(--accent); color: white; padding: 14px 32px;
     border: none; border-radius: 12px; font-weight: 600; font-size: 1rem;
     cursor: pointer; transition: 0.2s; box-shadow: 0 5px 15px var(--accent-glow);
+    text-decoration: none; display: inline-block;
 }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--accent-glow); }
 
 /* --- GRID --- */
-.search-wrapper { margin: 0 auto 40px; width: 100%; max-width: 400px; position: relative; }
+.search-wrapper { margin: 0 auto; width: 100%; max-width: 400px; position: relative; margin-bottom: 20px; }
 .search-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-sec); }
 .search-input {
     width: 100%; padding: 14px 14px 14px 45px; background: var(--bg-hover);
@@ -171,11 +167,42 @@ body {
     font-size: 1.5rem; transition: 0.3s;
 }
 .card:hover .card-icon { background: var(--accent); color: white; }
-
 .card h3 { color: var(--text-main); margin: 0; font-size: 1.2rem; }
 .card p { color: var(--text-sec); margin: 0; font-size: 0.95rem; }
 
-@media (min-width: 768px) { .date-badge { display: block; } }
+
+/* --- CONTACT SECTION --- */
+.contact-section {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 60px 20px; text-align: center;
+    margin-top: 40px;
+}
+.contact-section h2 { font-size: 2rem; color: var(--text-main); margin-bottom: 10px; }
+.contact-section p { color: var(--text-sec); margin-bottom: 30px; }
+
+/* --- FOOTER --- */
+.footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 20px;
+    background: var(--bg-body);
+    margin-top: auto; /* Empuja al fondo */
+}
+.footer-content {
+    max-width: 1400px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 20px;
+    align-items: center; text-align: center;
+}
+.footer-text { color: var(--text-sec); font-size: 0.9rem; }
+.social-links { display: flex; gap: 20px; }
+.social-links a {
+    color: var(--text-sec); font-size: 1.2rem; transition: 0.3s;
+}
+.social-links a:hover { color: var(--accent); transform: translateY(-3px); }
+
+@media (min-width: 768px) {
+    .date-badge { display: block; }
+    .footer-content { flex-direction: row; justify-content: space-between; text-align: left; }
+}
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
@@ -189,8 +216,8 @@ body {
             <button class="close-btn" onclick="toggleSidebar()">&times;</button>
         </div>
         <a href="#" class="nav-link active"><i class="fas fa-home"></i> <span data-key="nav_home">Home</span></a>
-        <a href="#" class="nav-link"><i class="fas fa-layer-group"></i> <span data-key="nav_proj">Projects</span></a>
-        <a href="#" class="nav-link"><i class="fas fa-user"></i> <span data-key="nav_about">About</span></a>
+        <a href="#projects" class="nav-link"><i class="fas fa-layer-group"></i> <span data-key="nav_proj">Projects</span></a>
+        <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> <span data-key="nav_contact">Contact</span></a>
     </aside>
 
     <div class="main-wrapper">
@@ -211,7 +238,6 @@ body {
 
             <div class="controls">
                 <div class="date-badge" id="date">...</div>
-                
                 <select class="lang-select" id="langSelect" onchange="changeLanguage()">
                     <option value="en">English</option>
                     <option value="es">Español</option>
@@ -220,8 +246,7 @@ body {
                     <option value="it">Italiano</option>
                     <option value="pt">Português</option>
                 </select>
-
-                <button class="btn-icon" id="theme-toggle" title="Switch Theme">
+                <button class="btn-icon" id="theme-toggle">
                     <i class="fas fa-moon"></i>
                 </button>
             </div>
@@ -230,39 +255,56 @@ body {
         <section class="hero">
             <h1 data-key="hero_title">Welcome to my Portfolio</h1>
             <p data-key="hero_desc">Minimalist interface designed for clarity. Explore my projects below.</p>
-            <button class="btn-primary" data-key="hero_btn">View All Projects</button>
+            <div style="display:flex; gap:15px; justify-content:center;">
+                <a href="#projects" class="btn-primary" data-key="hero_btn">View Projects</a>
+            </div>
         </section>
 
-        <div class="search-wrapper">
-            <i class="fas fa-search"></i>
-            <input type="text" id="search" class="search-input" placeholder="Search projects...">
+        <div id="projects">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search" class="search-input" placeholder="Search projects...">
+            </div>
+
+            <div class="grid" id="grid">
+                <div class="card" data-tags="html css web">
+                    <div class="card-icon"><i class="fab fa-html5"></i></div>
+                    <div><h3 data-key="card1_title">HTML Structure</h3><p data-key="card1_desc">Semantic web layout</p></div>
+                </div>
+                <div class="card" data-tags="python backend script">
+                    <div class="card-icon"><i class="fab fa-python"></i></div>
+                    <div><h3 data-key="card2_title">Python Scripts</h3><p data-key="card2_desc">Automation tools</p></div>
+                </div>
+                <div class="card" data-tags="sql database data">
+                    <div class="card-icon"><i class="fas fa-database"></i></div>
+                    <div><h3 data-key="card3_title">SQL Database</h3><p data-key="card3_desc">Data management</p></div>
+                </div>
+            </div>
         </div>
 
-        <div class="grid" id="grid">
-            <div class="card" data-tags="html css web">
-                <div class="card-icon"><i class="fab fa-html5"></i></div>
-                <div>
-                    <h3 data-key="card1_title">HTML Structure</h3>
-                    <p data-key="card1_desc">Semantic web layout</p>
-                </div>
-            </div>
-            <div class="card" data-tags="python backend script">
-                <div class="card-icon"><i class="fab fa-python"></i></div>
-                <div>
-                    <h3 data-key="card2_title">Python Scripts</h3>
-                    <p data-key="card2_desc">Automation tools</p>
-                </div>
-            </div>
-            <div class="card" data-tags="sql database data">
-                <div class="card-icon"><i class="fas fa-database"></i></div>
-                <div>
-                    <h3 data-key="card3_title">SQL Database</h3>
-                    <p data-key="card3_desc">Data management</p>
-                </div>
-            </div>
-        </div>
+        <section id="contact" class="contact-section">
+            <h2 data-key="contact_title">Ready to start a project?</h2>
+            <p data-key="contact_desc">I am available for freelance work and collaborations.</p>
+            <a href="mailto:jheremy@example.com" class="btn-primary">
+                <i class="fas fa-paper-plane"></i> <span data-key="contact_btn">Send Message</span>
+            </a>
+        </section>
 
     </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                &copy; 2025 Jheremy S. <span data-key="rights">All rights reserved.</span>
+            </div>
+            <div class="social-links">
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
 
 <script>
     // 1. FECHA
@@ -270,13 +312,13 @@ body {
         month: 'short', day: 'numeric', year: 'numeric'
     });
 
-    // 2. TOGGLE SIDEBAR
+    // 2. SIDEBAR
     function toggleSidebar() {
         document.getElementById('sidebar').classList.toggle('active');
         document.querySelector('.sidebar-overlay').classList.toggle('active');
     }
 
-    // 3. TEMA OSCURO/CLARO
+    // 3. DARK MODE
     const toggle = document.getElementById('theme-toggle');
     toggle.addEventListener('click', () => {
         document.body.classList.toggle('light-theme');
@@ -291,83 +333,102 @@ body {
     document.getElementById('search').addEventListener('input', (e) => {
         const val = e.target.value.toLowerCase();
         document.querySelectorAll('.card').forEach(card => {
-            const tags = card.dataset.tags;
-            card.style.display = tags.includes(val) ? 'flex' : 'none';
+            card.style.display = card.dataset.tags.includes(val) ? 'flex' : 'none';
         });
     });
 
-    // 5. SISTEMA MULTI-LENGUAJE
+    // 5. TRADUCCIONES COMPLETAS
     const translations = {
         en: {
-            nav_home: "Home", nav_proj: "Projects", nav_about: "About",
+            nav_home: "Home", nav_proj: "Projects", nav_contact: "Contact",
             hero_title: "Welcome to my Portfolio",
-            hero_desc: "Minimalist interface designed for clarity. Explore my projects below.",
-            hero_btn: "View All Projects",
+            hero_desc: "Minimalist interface designed for clarity.",
+            hero_btn: "View Projects",
             search_ph: "Search projects...",
             card1_title: "HTML Structure", card1_desc: "Semantic web layout",
             card2_title: "Python Scripts", card2_desc: "Automation tools",
-            card3_title: "SQL Database", card3_desc: "Data management"
+            card3_title: "SQL Database", card3_desc: "Data management",
+            contact_title: "Ready to start a project?",
+            contact_desc: "I am available for freelance work and collaborations.",
+            contact_btn: "Send Message",
+            rights: "All rights reserved."
         },
         es: {
-            nav_home: "Inicio", nav_proj: "Proyectos", nav_about: "Sobre Mí",
+            nav_home: "Inicio", nav_proj: "Proyectos", nav_contact: "Contacto",
             hero_title: "Bienvenido a mi Portafolio",
-            hero_desc: "Interfaz minimalista diseñada para la claridad. Explora mis proyectos.",
+            hero_desc: "Interfaz minimalista diseñada para la claridad.",
             hero_btn: "Ver Proyectos",
             search_ph: "Buscar proyectos...",
             card1_title: "Estructura HTML", card1_desc: "Diseño web semántico",
             card2_title: "Scripts Python", card2_desc: "Herramientas de automatización",
-            card3_title: "Base de Datos SQL", card3_desc: "Gestión de datos"
+            card3_title: "Base de Datos SQL", card3_desc: "Gestión de datos",
+            contact_title: "¿Listo para empezar?",
+            contact_desc: "Disponible para trabajos freelance y colaboraciones.",
+            contact_btn: "Enviar Mensaje",
+            rights: "Todos los derechos reservados."
         },
         fr: {
-            nav_home: "Accueil", nav_proj: "Projets", nav_about: "À Propos",
+            nav_home: "Accueil", nav_proj: "Projets", nav_contact: "Contact",
             hero_title: "Bienvenue sur mon Portfolio",
-            hero_desc: "Interface minimaliste conçue pour la clarté. Explorez mes projets.",
+            hero_desc: "Interface minimaliste conçue pour la clarté.",
             hero_btn: "Voir les Projets",
-            search_ph: "Rechercher des projets...",
+            search_ph: "Rechercher...",
             card1_title: "Structure HTML", card1_desc: "Mise en page web sémantique",
             card2_title: "Scripts Python", card2_desc: "Outils d'automatisation",
-            card3_title: "Base de Données SQL", card3_desc: "Gestion des données"
+            card3_title: "Base de Données", card3_desc: "Gestion des données",
+            contact_title: "Prêt à commencer ?",
+            contact_desc: "Disponible pour collaborations et freelance.",
+            contact_btn: "Envoyer Message",
+            rights: "Tous droits réservés."
         },
         de: {
-            nav_home: "Startseite", nav_proj: "Projekte", nav_about: "Über mich",
+            nav_home: "Start", nav_proj: "Projekte", nav_contact: "Kontakt",
             hero_title: "Willkommen in meinem Portfolio",
-            hero_desc: "Minimalistische Benutzeroberfläche für Klarheit. Entdecken Sie meine Projekte.",
-            hero_btn: "Alle Projekte Ansehen",
-            search_ph: "Projekte suchen...",
-            card1_title: "HTML Struktur", card1_desc: "Semantisches Webdesign",
-            card2_title: "Python Skripte", card2_desc: "Automatisierungstools",
-            card3_title: "SQL Datenbank", card3_desc: "Datenmanagement"
+            hero_desc: "Minimalistische Benutzeroberfläche.",
+            hero_btn: "Projekte Ansehen",
+            search_ph: "Suchen...",
+            card1_title: "HTML Struktur", card1_desc: "Semantisches Design",
+            card2_title: "Python Skripte", card2_desc: "Automatisierung",
+            card3_title: "SQL Datenbank", card3_desc: "Datenmanagement",
+            contact_title: "Bereit für ein Projekt?",
+            contact_desc: "Verfügbar für Freelance-Arbeit.",
+            contact_btn: "Nachricht Senden",
+            rights: "Alle Rechte vorbehalten."
         },
         it: {
-            nav_home: "Home", nav_proj: "Progetti", nav_about: "Chi Sono",
+            nav_home: "Home", nav_proj: "Progetti", nav_contact: "Contatto",
             hero_title: "Benvenuto nel mio Portfolio",
-            hero_desc: "Interfaccia minimalista progettata per la chiarezza. Esplora i miei progetti.",
+            hero_desc: "Interfaccia minimalista per chiarezza.",
             hero_btn: "Vedi Progetti",
-            search_ph: "Cerca progetti...",
-            card1_title: "Struttura HTML", card1_desc: "Layout web semantico",
-            card2_title: "Script Python", card2_desc: "Strumenti di automazione",
-            card3_title: "Database SQL", card3_desc: "Gestione dati"
+            search_ph: "Cerca...",
+            card1_title: "Struttura HTML", card1_desc: "Layout semantico",
+            card2_title: "Script Python", card2_desc: "Automazione",
+            card3_title: "Database SQL", card3_desc: "Gestione dati",
+            contact_title: "Pronto a iniziare?",
+            contact_desc: "Disponibile per collaborazioni freelance.",
+            contact_btn: "Invia Messaggio",
+            rights: "Tutti i diritti riservati."
         },
         pt: {
-            nav_home: "Início", nav_proj: "Projetos", nav_about: "Sobre",
+            nav_home: "Início", nav_proj: "Projetos", nav_contact: "Contato",
             hero_title: "Bem-vindo ao meu Portfólio",
-            hero_desc: "Interface minimalista projetada para clareza. Explore meus projetos abaixo.",
+            hero_desc: "Interface minimalista e clara.",
             hero_btn: "Ver Projetos",
-            search_ph: "Pesquisar projetos...",
-            card1_title: "Estrutura HTML", card1_desc: "Layout web semântico",
-            card2_title: "Scripts Python", card2_desc: "Ferramentas de automação",
-            card3_title: "Banco de Dados SQL", card3_desc: "Gerenciamento de dados"
+            search_ph: "Pesquisar...",
+            card1_title: "Estrutura HTML", card1_desc: "Layout semântico",
+            card2_title: "Scripts Python", card2_desc: "Automação",
+            card3_title: "Banco de Dados", card3_desc: "Gestão de dados",
+            contact_title: "Pronto para começar?",
+            contact_desc: "Disponível para freelance e parcerias.",
+            contact_btn: "Enviar Mensagem",
+            rights: "Todos os direitos reservados."
         }
     };
 
     function changeLanguage() {
         const lang = document.getElementById('langSelect').value;
         const texts = translations[lang];
-
-        // 1. Placeholder del buscador
         document.getElementById('search').placeholder = texts.search_ph;
-
-        // 2. Todos los elementos con 'data-key'
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
             if (texts[key]) el.innerText = texts[key];
