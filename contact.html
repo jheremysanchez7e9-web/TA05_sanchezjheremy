@@ -5,176 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Contact - Jheremy Portfolio</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%232d88ff'/><text x='50' y='70' font-family='Arial, sans-serif' font-weight='bold' font-size='60' fill='white' text-anchor='middle'>J</text></svg>">
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-<style>
-/* --- VARIABLES --- */
-:root {
-    --bg-body: #050505;
-    --bg-panel: #0a0a0a;
-    --bg-card: #111111;
-    --bg-input: #1a1a1a;
-    --border: rgba(255, 255, 255, 0.1);
-    --accent: #2d88ff;
-    --text-main: #ffffff;
-    --text-sec: #888888;
-}
-
-body.light-theme {
-    --bg-body: #f0f2f5;
-    --bg-panel: #ffffff;
-    --bg-card: #ffffff;
-    --bg-input: #f8f9fa;
-    --border: rgba(0, 0, 0, 0.1);
-    --accent: #1877f2;
-    --text-main: #050505;
-    --text-sec: #65676b;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: background 0.3s, color 0.3s, border 0.3s; }
-
-html, body { height: 100%; width: 100%; overflow-x: hidden; }
-
-body {
-    background-color: var(--bg-body);
-    display: flex; flex-direction: column;
-    color: var(--text-main);
-}
-
-/* --- LAYOUT PRINCIPAL --- */
-.main-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    gap: 30px;
-}
-
-/* HEADER */
-.header {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-bottom: 10px;
-}
-.back-btn {
-    text-decoration: none; color: var(--text-main); background: var(--bg-card);
-    padding: 10px 20px; border-radius: 30px; border: 1px solid var(--border);
-    font-weight: 500; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;
-    transition: 0.3s;
-}
-.back-btn:hover { background: var(--bg-input); transform: translateX(-5px); }
-
-/* --- GRID DE CONTENIDO (Izquierda: Info / Derecha: Formulario) --- */
-.contact-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
-    flex: 1;
-    height: 100%;
-}
-
-@media (min-width: 960px) {
-    .contact-wrapper {
-        grid-template-columns: 1fr 1.2fr; /* Izquierda más pequeña, Derecha (Form) más grande */
-        align-items: center; /* Centrado verticalmente */
-        height: auto;
-    }
-}
-
-/* --- COLUMNA IZQUIERDA (INFO) --- */
-.info-section {
-    display: flex; flex-direction: column; gap: 25px;
-}
-
-.info-header h1 { font-size: 2.8rem; margin-bottom: 10px; line-height: 1.1; }
-.info-header p { color: var(--text-sec); font-size: 1.1rem; }
-
-.contact-details { display: flex; flex-direction: column; gap: 15px; }
-.detail-item {
-    display: flex; align-items: center; gap: 15px;
-    background: var(--bg-card); padding: 15px; border-radius: 12px;
-    border: 1px solid var(--border);
-}
-.icon-circle {
-    width: 45px; height: 45px; background: rgba(45, 136, 255, 0.15);
-    color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem;
-}
-
-/* MAPA */
-.map-wrapper {
-    width: 100%; height: 200px; border-radius: 16px; overflow: hidden;
-    border: 1px solid var(--border); position: relative;
-}
-.map-wrapper iframe { width: 100%; height: 100%; border: none; filter: invert(90%) hue-rotate(180deg) grayscale(20%); }
-body.light-theme .map-wrapper iframe { filter: none; }
-
-/* --- COLUMNA DERECHA (FORMULARIO) --- */
-.form-card {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
-
-.form-grid { display: grid; gap: 20px; }
-
-.input-group label {
-    display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--text-main);
-}
-.input-field {
-    width: 100%; padding: 14px; background: var(--bg-input);
-    border: 1px solid var(--border); border-radius: 10px;
-    color: var(--text-main); font-size: 1rem; outline: none;
-}
-.input-field:focus { border-color: var(--accent); background: var(--bg-body); }
-
-/* --- PHONE INPUT CON PREFIJO --- */
-.phone-row { display: flex; gap: 10px; }
-.prefix-select {
-    width: 110px;
-    padding: 14px;
-    background: var(--bg-input);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text-main);
-    outline: none;
-    cursor: pointer;
-    font-size: 1rem;
-    appearance: none; /* Quita estilo por defecto */
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23888888%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 10px;
-}
-
-textarea.input-field { resize: vertical; min-height: 120px; }
-
-.submit-btn {
-    width: 100%; padding: 16px; background: var(--accent);
-    color: white; font-weight: 600; border: none; border-radius: 12px;
-    cursor: pointer; font-size: 1.05rem; margin-top: 10px;
-    box-shadow: 0 4px 15px rgba(45, 136, 255, 0.3);
-    transition: 0.2s;
-}
-.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(45, 136, 255, 0.4); }
-
-/* FOOTER */
-.footer-copy {
-    text-align: center; color: var(--text-sec); font-size: 0.85rem; padding-top: 20px;
-}
-
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="contact-page-body">
 
-    <div class="main-container">
-        <header class="header">
+    <div class="main-container-contact">
+        <header class="contact-header">
             <a href="index.html" class="back-btn">
                 <i class="fas fa-arrow-left"></i> Back to Portfolio
             </a>
@@ -184,13 +22,11 @@ textarea.input-field { resize: vertical; min-height: 120px; }
         </header>
 
         <div class="contact-wrapper">
-            
             <div class="info-section">
                 <div class="info-header">
                     <h1>Let's Talk</h1>
                     <p>Have a project in mind? Ask me anything.</p>
                 </div>
-
                 <div class="contact-details">
                     <div class="detail-item">
                         <div class="icon-circle"><i class="fas fa-envelope"></i></div>
@@ -207,7 +43,6 @@ textarea.input-field { resize: vertical; min-height: 120px; }
                         </div>
                     </div>
                 </div>
-
                 <div class="map-wrapper">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.6366436636734!2d2.185672076662492!3d41.44211159364969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bd2c95639b2b%3A0x296e49257e1b52b2!2sInstitut%20Tecnol%C3%B2gic%20de%20Barcelona!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses" allowfullscreen="" loading="lazy"></iframe>
                 </div>
@@ -215,17 +50,14 @@ textarea.input-field { resize: vertical; min-height: 120px; }
 
             <div class="form-card">
                 <form class="form-grid" onsubmit="event.preventDefault(); alert('Message Sent!');">
-                    
                     <div class="input-group">
                         <label>Name</label>
                         <input type="text" class="input-field" placeholder="Your Name" required>
                     </div>
-
                     <div class="input-group">
                         <label>Email</label>
                         <input type="email" class="input-field" placeholder="hello@example.com" required>
                     </div>
-
                     <div class="input-group">
                         <label>Phone</label>
                         <div class="phone-row">
@@ -233,23 +65,17 @@ textarea.input-field { resize: vertical; min-height: 120px; }
                                 <option value="+34">🇪🇸 +34</option>
                                 <option value="+1">🇺🇸 +1</option>
                                 <option value="+44">🇬🇧 +44</option>
-                                <option value="+33">🇫🇷 +33</option>
-                                <option value="+49">🇩🇪 +49</option>
-                                <option value="+39">🇮🇹 +39</option>
                             </select>
                             <input type="tel" class="input-field" placeholder="612 345 678" style="flex:1;">
                         </div>
                     </div>
-
                     <div class="input-group">
                         <label>Message</label>
                         <textarea class="input-field" placeholder="Tell me about your project..."></textarea>
                     </div>
-
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
             </div>
-
         </div>
 
         <div class="footer-copy">
@@ -257,20 +83,6 @@ textarea.input-field { resize: vertical; min-height: 120px; }
         </div>
     </div>
 
-<script>
-    // Modo Oscuro / Claro
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-        document.body.classList.toggle('light-theme');
-        const icon = document.querySelector('#theme-toggle i');
-        if (document.body.classList.contains('light-theme')) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
-        }
-    });
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
