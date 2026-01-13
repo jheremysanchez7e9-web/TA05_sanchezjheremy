@@ -1,122 +1,328 @@
-/**
- * ------------------------------------------------------------------
- * CONFIGURATION & LOCALIZATION DATABASE
- * ------------------------------------------------------------------
- */
-const langDict = {
-    es: {
-        sub: "ESTUDIANTE DE CIBERSEGURIDAD", h: "[ INICIO ]", p: "[ PROYECTOS ]", c: "[ CONTACTO ]",
-        all: "TODOS", func: "FUNCIONALES", cripto: "CRIPTO", net: "REDES", conv: "CONVERSORES",
-        cTitle: "CANAL SEGURO // CONTACTO", send: "ENVIAR TRANSMISIÓN",
-        back: "< VOLVER", close: "FINALIZAR PROCESO", 
-        pName: "Identidad", pDesc: "Detalle de la solicitud...",
-        lName: "AGENTE:", 
-        labels: { n: "NOMBRE", e: "EMAIL", p: "TELÉFONO", d: "MOTIVO / MENSAJE" },
-        sPlaceholder: "BUSCAR_MODULO...",
-        wait: "Esperando entrada de datos...", write: "Ingrese datos aquí...", 
-        scan: "OBTENER IP PÚBLICA",
-        tracking: "INICIANDO HANDSHAKE CON SERVIDOR EXTERNO...", 
-        gen: "GENERAR MAC", dev: "ERROR 404: MÓDULO NO ENCONTRADO O EN DESARROLLO",
-        spoof_loc: "Barcelona, Cataluña, España",
-        selProj: "> PROYECTOS DESTACADOS",
-        cat: { Cripto: "CRIPTOGRAFÍA", Net: "REDES", Conv: "CONVERSIÓN", Web: "WEB AUDIT", Data: "DATOS" }
-    },
-    ca: {
-        sub: "ESTUDIANT DE CIBERSEGURETAT", h: "[ INICI ]", p: "[ PROJECTES ]", c: "[ CONTACTE ]",
-        all: "TOTS", func: "FUNCIONALS", cripto: "CRIPTO", net: "XARXES", conv: "CONVERTIDORS",
-        cTitle: "CANAL SEGUR // CONTACTE", send: "ENVIAR TRANSMISSIÓ",
-        back: "< TORNAR", close: "TANCAR PROCÉS", 
-        pName: "Identitat", pDesc: "Detalls de la sol·licitud...",
-        lName: "AGENT:", 
-        labels: { n: "NOM", e: "EMAIL", p: "TELÈFON", d: "MOTIU / MISSATGE" },
-        sPlaceholder: "CERCAR_MODUL...",
-        wait: "Esperant dades...", write: "Introdueix dades...", 
-        scan: "OBTENIR IP PÚBLICA",
-        tracking: "INICIANT HANDSHAKE AMB SERVIDOR EXTERN...", 
-        gen: "GENERAR MAC", dev: "ERROR 404: MÒDUL NO TROBAT O EN DESENVOLUPAMENT",
-        spoof_loc: "Barcelona, Catalunya, Espanya",
-        selProj: "> PROJECTES DESTACATS",
-        cat: { Cripto: "CRIPTOGRAFIA", Net: "XARXES", Conv: "CONVERSIÓ", Web: "AUDITORIA WEB", Data: "DADES" }
-    },
-    en: {
-        sub: "CYBERSECURITY STUDENT", h: "[ HOME ]", p: "[ PROJECTS ]", c: "[ CONTACT ]",
-        all: "ALL", func: "WORKING", cripto: "CRYPTO", net: "NETWORK", conv: "CONVERTERS",
-        cTitle: "SECURE_CHANNEL // CONTACT", send: "SEND TRANSMISSION",
-        back: "< BACK", close: "KILL PROCESS", 
-        pName: "Identity", pDesc: "Request details...",
-        lName: "AGENT:", 
-        labels: { n: "NAME", e: "EMAIL", p: "PHONE", d: "REASON / MESSAGE" },
-        sPlaceholder: "SEARCH_MODULE...",
-        wait: "Awaiting data input...", write: "Input data here...", 
-        scan: "GET PUBLIC IP",
-        tracking: "INITIATING HANDSHAKE WITH EXTERNAL SERVER...", 
-        gen: "GENERATE MAC", dev: "ERROR 404: MODULE NOT FOUND OR IN DEV",
-        spoof_loc: "Barcelona, Catalonia, Spain",
-        selProj: "> SELECTED PROJECTS",
-        cat: { Cripto: "CRYPTOGRAPHY", Net: "NETWORK", Conv: "CONVERSION", Web: "WEB AUDIT", Data: "DATA" }
-    },
-    fr: {
-        sub: "ÉTUDIANT EN CYBERSÉCURITÉ", h: "[ ACCUEIL ]", p: "[ PROJETS ]", c: "[ CONTACT ]",
-        all: "TOUS", func: "FONCTIONNEL", cripto: "CRYPTO", net: "RÉSEAU", conv: "CONV",
-        cTitle: "CANAL_SÉCURISÉ // CONTACT", send: "ENVOYER",
-        back: "< RETOUR", close: "TERMINER", 
-        pName: "Identité", pDesc: "Détails...",
-        lName: "AGENT:", 
-        labels: { n: "NOM", e: "EMAIL", p: "TÉLÉPHONE", d: "MOTIF / MESSAGE" },
-        sPlaceholder: "CHERCHER...",
-        wait: "En attente...", write: "Saisir données...", 
-        scan: "OBTENER IP PUBLIQUE",
-        tracking: "INITIALISATION DU HANDSHAKE...", 
-        gen: "GÉNÉRER MAC", dev: "ERREUR 404: MODULE EN DÉVELOPPEMENT",
-        spoof_loc: "Barcelone, Catalogne, Espagne",
-        selProj: "> PROJETS SÉLECTIONNÉS",
-        cat: { Cripto: "CRYPTOGRAPHIE", Net: "RÉSEAU", Conv: "CONVERSION", Web: "WEB AUDIT", Data: "DONNÉES" }
-    },
-    de: {
-        sub: "IT-SICHERHEIT STUDENT", h: "[ HOME ]", p: "[ PROJEKTE ]", c: "[ KONTAKT ]",
-        all: "ALLE", func: "FUNKTIONAL", cripto: "KRYPTO", net: "NETZWERK", conv: "KONV",
-        cTitle: "SICHERER_KANAL // KONTAKT", send: "SENDEN",
-        back: "< ZURÜCK", close: "BEENDEN", 
-        pName: "Identität", pDesc: "Nachricht...",
-        lName: "AGENT:", 
-        labels: { n: "NAME", e: "EMAIL", p: "TELEFON", d: "GRUND / NACHRICHT" },
-        sPlaceholder: "SUCHEN...",
-        wait: "Warten auf Eingabe...", write: "Daten eingeben...", 
-        scan: "ÖFFENTLICHE IP ABRUFEN",
-        tracking: "HANDSHAKE WIRD INITIALISIERT...", 
-        gen: "MAC GENERIEREN", dev: "FEHLER 404: MODUL IN ENTWICKLUNG",
-        spoof_loc: "Barcelona, Katalonien, Spanien",
-        selProj: "> AUSGEWÄHLTE PROJEKTE",
-        cat: { Cripto: "KRYPTOGRAPHIE", Net: "NETZWERK", Conv: "KONVERSION", Web: "WEB AUDIT", Data: "DATEN" }
-    }
-};
+:root {
+    --bg: #050505;
+    --card: rgba(20, 20, 20, 0.95);
+    --border: rgba(255, 255, 255, 0.3);
+    --text: #e0e0e0;
+    --accent: #00ff41; /* Cyber Green */
+    --alert: #ff3333;
+    --glow: rgba(0, 255, 65, 0.15);
+    --container-bg: rgba(10, 10, 10, 0.85);
+    --font-main: 'Courier New', Courier, monospace;
+}
 
-/**
- * ------------------------------------------------------------------
- * PROJECT REPOSITORY
- * ------------------------------------------------------------------
- */
-const projects = [
-    {n:"SHA-256 Hasher", c:"Cripto", f:true}, 
-    {n:"Base64 Encoder", c:"Conv", f:true},
-    {n:"IP Tracker", c:"Net", f:true}, 
-    {n:"Binary Converter", c:"Conv", f:true},
-    {n:"Morse Code", c:"Conv", f:true}, 
-    {n:"HEX Viewer", c:"Conv", f:true},
-    {n:"MAC Generator", c:"Net", f:true}, 
-    {n:"Subnet Calc", c:"Net", f:false},
-    {n:"Port Scanner", c:"Net", f:false}, 
-    {n:"SQL Injector", c:"Web", f:false},
-    {n:"Steganography", c:"Cripto", f:false}, 
-    {n:"Password Gen", c:"Cripto", f:false},
-    {n:"WiFi Deauther", c:"Net", f:false},
-    {n:"Keylogger Sim", c:"Data", f:false},
-    {n:"Packet Sniffer", c:"Net", f:false},
-    {n:"Brute Force Tool", c:"Cripto", f:false},
-    {n:"XSS Tester", c:"Web", f:false},
-    {n:"Malware Analysis", c:"Data", f:false},
-    {n:"VPN Tunnel", c:"Net", f:false},
-    {n:"Firewall Rule Gen", c:"Net", f:false},
-    {n:"Rootkit Detector", c:"Data", f:false},
-    {n:"Social Eng. Toolkit", c:"Web", f:false}
-];
+.light-mode {
+    --bg: #e0e0e0;
+    --card: #f5f5f5;
+    --border: #aaa;
+    --text: #111;
+    --accent: #008000;
+    --alert: #cc0000;
+    --glow: rgba(0, 128, 0, 0.1);
+    --container-bg: rgba(255, 255, 255, 0.95);
+}
+
+* { box-sizing: border-box; font-family: var(--font-main); transition: all 0.2s ease; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    background-image: 
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    overflow: hidden;
+    padding: 15px;
+}
+
+/* --- INTERFACE CONTAINER --- */
+.container {
+    width: 100%;
+    max-width: 1100px;
+    height: 90vh;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 25px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: var(--container-bg);
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    position: relative;
+}
+
+/* Scanline Effect overlay */
+.container::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; z-index: 100; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+.header-controls { display: flex; align-items: center; gap: 10px; }
+
+.lang-select {
+    background: #000;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    font-size: 12px;
+    padding: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    padding: 8px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+.btn:hover, .btn.active { 
+    background: var(--accent); 
+    color: #000; 
+    box-shadow: 0 0 10px var(--accent);
+    border-color: var(--accent);
+}
+
+.main-content { position: relative; width: 100%; height: 100%; overflow: hidden; }
+
+/* --- VIEW: HOME --- */
+#home-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.title-box {
+    text-align: center;
+    width: 80%;
+    margin-bottom: 40px; 
+}
+.title-box h1 { 
+    font-size: clamp(2rem, 5vw, 4rem); 
+    margin: 0; 
+    color: var(--text);
+    text-shadow: 2px 2px 0px var(--accent);
+}
+
+/* SELECTED PROJECTS STYLES */
+.selected-section {
+    width: 100%;
+    max-width: 700px;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    text-align: center;
+    animation: fadeIn 1s ease-in;
+}
+
+.section-label {
+    font-size: 10px; 
+    color: var(--border); 
+    letter-spacing: 2px; 
+    margin-bottom: 15px;
+    display: block;
+}
+
+.mini-grid {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.mini-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--accent);
+    padding: 15px;
+    cursor: pointer;
+    min-width: 140px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.mini-card:hover {
+    background: var(--accent);
+    color: #000;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 65, 0.2);
+}
+
+.mini-card-title {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.mini-card-cat {
+    font-size: 9px;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+
+/* --- VIEW: PROJECTS --- */
+#projects-view { display: none; flex-direction: column; height: 100%; }
+
+.filter-bar { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+.search-box {
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    padding: 12px;
+    font-family: var(--font-main);
+}
+.filter-btns { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: var(--accent); }
+
+.card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+}
+.card:hover { border-color: var(--accent); background: rgba(0,255,65,0.05); }
+.card .badge { 
+    position: absolute; top: 5px; right: 5px; 
+    font-size: 9px; padding: 2px 4px; 
+    border: 1px solid var(--alert); color: var(--alert); 
+}
+
+/* --- VIEW: TOOLS & CONTACT --- */
+#app-view, #contact-view { display: none; flex-direction: column; height: 100%; width: 100%; }
+#contact-view { max-width: 100%; }
+#app-view { max-width: 800px; margin: 0 auto; }
+
+.tool-box { 
+    flex-grow: 1; 
+    border: 1px solid var(--border); 
+    padding: 20px; 
+    background: rgba(0,0,0,0.4);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    height: 100%;
+}
+
+.map-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    padding: 5px;
+    background: #000;
+}
+
+.map-frame {
+    width: 100%;
+    flex-grow: 1;
+    border: none;
+    filter: grayscale(100%) invert(90%) contrast(120%);
+}
+
+.phone-input-group {
+    display: flex;
+    gap: 5px;
+}
+.phone-prefix {
+    width: 110px;
+    background: #000;
+    color: var(--accent);
+    border: 1px solid #444;
+}
+
+.terminal-output {
+    background: #000;
+    border: 1px solid #333;
+    padding: 15px;
+    color: var(--accent);
+    font-size: 13px;
+    margin-top: 15px;
+    min-height: 100px;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    flex-grow: 1;
+}
+
+.contact-form input, .contact-form textarea, .contact-form select {
+    width: 100%;
+    background: #111;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: var(--font-main);
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+.footer { display: flex; justify-content: center; gap: 15px; padding-top: 15px; border-top: 1px solid var(--border); margin-top: auto; }
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.cursor { display: inline-block; width: 8px; height: 15px; background: var(--accent); animation: blink 1s infinite; vertical-align: middle; }
+
+.loading-bar {
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.5s;
+}
+
+/* --- MEDIA QUERIES (RESPONSIVE) --- */
+@media (max-width: 768px) {
+    body { padding: 0; height: auto; min-height: 100vh; overflow-y: auto; }
+    .container { height: auto; min-height: 100vh; border: none; border-radius: 0; grid-template-rows: auto 1fr auto; display: flex; flex-direction: column; }
+    .main-content { overflow: visible; flex-grow: 1; }
+    .header { flex-direction: column; gap: 10px; text-align: center; }
+    .title-box h1 { font-size: 2.5rem; }
+    .grid-container { grid-template-columns: 1fr; overflow: visible; }
+    #projects-view { height: auto; overflow: visible; }
+    .contact-layout { grid-template-columns: 1fr; height: auto; }
+    .map-container { height: 300px; }
+    .tool-box { overflow: visible; height: auto; }
+    .filter-btns { justify-content: center; }
+    .filter-btns .btn { flex-grow: 1; font-size: 10px; }
+    
+    .mini-grid { flex-direction: column; }
+    .mini-card { width: 100%; }
+}
