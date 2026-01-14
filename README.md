@@ -1,52 +1,120 @@
-# 🛡️ Jheremy Sánchez // Cyber Portfolio & Toolkit
+# 🛡️ JHEREMY SÁNCHEZ // CYBER SECURITY PORTFOLIO
 
-![Project Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge&logo=git)
-![Security](https://img.shields.io/badge/Theme-Cyber_Security-00ff41?style=for-the-badge&logo=kalilinux&logoColor=black)
-![Core](https://img.shields.io/badge/Tech-Vanilla_JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+> **System ID:** `7E9-ITB-SEC`  
+> **Status:** `SYSTEM ONLINE`
 
-> **"System.Root // Access Granted"**
+This project is an interactive web interface designed to showcase the professional profile of a **Cybersecurity Specialist**. The application combines a **minimalist "Dark Luxury"** aesthetic with real technical functionalities, simulating an advanced terminal environment while maintaining the usability of a modern web application.
 
-An immersive, terminal-inspired personal portfolio designed to showcase cybersecurity skills, frontend engineering proficiency, and interactive utility tools. The project simulates a command-line environment within a modern web browser, built entirely with **Vanilla JavaScript** to ensure high performance and zero dependencies.
-
----
-
-## ⚡ Project Overview
-
-This repository hosts a Single Page Application (SPA) that functions as both a professional portfolio and a suite of usable cybersecurity tools. The architecture focuses on modularity, clean code practices, and a distinctive "Cyberpunk/InfoSec" aesthetic.
-
-### Key Features
-
-* **🖥️ Immersive UI/UX:** Custom implementation of CRT scanlines, neon glows, and typewriter effects using advanced CSS3 and JS. Includes a toggleable "Light Mode" for high-contrast visibility.
-* **🌐 Localization (i18n):** Robust hot-swapping language engine supporting **English, Spanish, Catalan, French, and German** instantly without page reloads.
-* **🛠️ Modular Architecture:** Separation of concerns with dedicated data layers (`data.js`) and logic layers (`main.js`), facilitating easy maintenance and scalability.
+The primary objective is to demonstrate competencies in both Web Development (Frontend) and programming logic oriented towards security tools and networking.
 
 ---
 
-## 🧰 Integrated Toolkit
+## 📋 Table of Contents
 
-Beyond a static showcase, the system includes functional modules for basic security analysis and data conversion:
-
-| Module Name | Category | Status | Functionality |
-| :--- | :--- | :--- | :--- |
-| **IP Tracker** | `[NET]` | ✅ Active | Retrieves Public IP, ISP, and Geolocation data via external REST APIs. |
-| **SHA-256 Hasher** | `[CRYPTO]` | ✅ Active | Real-time client-side hashing using the Web Crypto API. |
-| **MAC Generator** | `[NET]` | ✅ Active | Generates randomized MAC addresses for testing network interfaces. |
-| **Base64 Encoder** | `[CONV]` | ✅ Active | Instant bidirectional String-to-Base64 encoding. |
-| **Binary Converter** | `[CONV]` | ✅ Active | Translates ASCII text into binary strings for data inspection. |
-| **Morse Code** | `[CONV]` | ✅ Active | Standard ITU conversion for signaling protocols. |
+1. [General Description](#-general-description)
+2. [Technical Features](#-technical-features)
+3. [Implemented Tools](#-implemented-tools)
+4. [Technology Stack](#-technology-stack)
+5. [Installation & Deployment](#-installation--deployment)
+6. [Project Structure](#-project-structure)
+7. [Author](#-author)
 
 ---
 
-## 📂 Repository Structure
+## 🧐 General Description
 
-The project follows a clean, semantic file structure:
+The portfolio departs from traditional designs to offer an immersive experience. The user navigates through a control panel that centralizes profile information, featured projects, and functional tools in real-time.
+
+The visual design prioritizes **elegant minimalism**: deep dark backgrounds (`#050505`), clean typography, and metallic gold accents (`#d4af37`), eliminating visual noise to focus attention on functionality and content.
+
+---
+
+## 🚀 Technical Features
+
+### 🌐 Internationalization (i18n)
+A robust real-time translation system without page reloads.
+- **Supported Languages:** Spanish (ES), English (EN), Catalan (CA), French (FR), German (DE).
+- **Scope:** Translates the interface, tool descriptions, placeholders, and dynamically resets text animations.
+
+### ⚡ Interactivity & UI/UX
+- **TypeWriter Effect:** Automatic typing animation that rotates through profile roles (Student, Pentester, Network Admin, etc.).
+- **Responsive Design:** Fluid adaptation to mobile devices, tablets, and desktops.
+- **Light/Dark Mode:** Theme toggling with visual persistence.
+- **Dynamic Map:** **OpenStreetMap** integration (via iframe) for geolocation without private API key dependencies.
+
+### 🛡️ Network & Cryptography Logic
+Implementation of pure JavaScript logic (`Vanilla JS`) to execute real tasks within the client's browser.
+
+---
+
+## 🛠 Implemented Tools
+
+The portfolio includes a set of functional "Web-Apps" integrated directly into the DOM:
+
+1.  **IP Tracker:**
+    * Connection to an external API (`api.ipify.org`) to retrieve the user's real public IP.
+    * Simulation of ISP analysis and geolocation.
+    * Error handling (try/catch) for ad blockers.
+
+2.  **SHA-256 Hasher:**
+    * Utilization of the browser's native **Web Crypto API** to generate secure hashes in real-time.
+
+3.  **MAC Generator:**
+    * Algorithm for creating valid random MAC addresses (Hexadecimal).
+
+4.  **Base64 Encoder:**
+    * Bidirectional conversion of text to Base64 format.
+
+5.  **Binary / Hexadecimal / Morse Converter:**
+    * Algorithms for transforming text strings into their respective representations.
+
+---
+
+## 💻 Technology Stack
+
+The project has been developed following a **"Dependency-Free"** philosophy to ensure maximum performance and compatibility.
+
+* **Semantic HTML5:** Content structure.
+* **Modern CSS3:** CSS Variables (`:root`), Flexbox, CSS Grid, and Media Queries.
+* **JavaScript (ES6+):** Business logic, DOM manipulation, `async/await`, and `fetch API`.
+* **OpenStreetMap:** Open-source mapping service.
+
+No frameworks (React, Vue, Bootstrap) or heavy libraries (jQuery) were used, demonstrating a solid command of web fundamentals.
+
+---
+
+## 📥 Installation & Deployment
+
+As a static site, it does not require backend server configuration (Node.js, PHP, Python).
+
+### Local Execution
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/cyber-portfolio.git](https://github.com/your-username/cyber-portfolio.git)
+    ```
+2.  **Navigate to the folder:**
+    ```bash
+    cd cyber-portfolio
+    ```
+3.  **Run:**
+    Simply open the `index.html` file in your preferred web browser (Chrome, Firefox, Edge, Safari).
+
+### Customization
+To modify the profile picture, replace the file:
+* `img/logo.png` (A square image with a 1:1 ratio is recommended).
+
+---
+
+## 📂 Project Structure
 
 ```text
 /
-├── index.html       # Entry point & DOM Structure
-├── favicon.png      # System Identification Icon
+├── index.html          # Core structure and markup
 ├── css/
-│   └── style.css    # Custom Variables, Animations & Responsive Layouts
-└── js/
-    ├── data.js      # Localization Dictionary & Project Database
-    └── main.js      # Core Application Logic & Event Handling
+│   └── style.css       # Styles, theme variables, and animations
+├── js/
+│   ├── main.js         # Main logic, i18n, and tools
+│   └── date.js         # Independent module for date management
+├── img/
+│   └── logo.png        # Profile/branding image
+└── README.md           # Project documentation
