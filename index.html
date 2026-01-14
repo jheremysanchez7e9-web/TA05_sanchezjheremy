@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jheremy Sánchez - Cyber Portfolio</title>
-    
-    <link rel="icon" type="image/png" href="favicon.png">
-
+    <title>Jheremy Sánchez - Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/logo.png"> 
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <div style="font-weight:bold; color:var(--accent)">JHEREMY SÁNCHEZ // <span id="header-role" style="font-size:10px">SYSTEM.ROOT</span></div>
-        
+        <div class="branding">
+            <img src="img/logo.png" alt="Profile" class="logo-img" onerror="this.style.display='none'">
+            
+            <div class="brand-text">
+                <span class="brand-name">JHEREMY SÁNCHEZ</span>
+                <span id="dynamic-role" class="brand-role"></span>
+            </div>
+        </div>
+
         <div class="header-controls">
-            <span id="date-display" style="font-size:10px; color:#888;"></span>
+            <span id="date-display" class="date-text"></span>
+            
             <select class="lang-select" id="lang-select" onchange="changeLang()">
                 <option value="es">ES</option>
                 <option value="ca">CA</option>
@@ -24,7 +30,8 @@
                 <option value="fr">FR</option>
                 <option value="de">DE</option>
             </select>
-            <button class="btn" onclick="toggleTheme()" id="theme-btn">☼</button>
+            
+            <button class="btn theme-btn" onclick="toggleTheme()" id="theme-btn">☀</button>
         </div>
     </div>
 
@@ -32,12 +39,12 @@
         <div id="home-view">
             <div class="title-box">
                 <h1>JHEREMY SÁNCHEZ</h1>
-                <p id="hero-sub" style="letter-spacing: 2px; color: var(--accent);"></p>
-                <div style="margin-top:20px; font-size:10px; color:#666">ID: 7E9-ITB-SEC</div>
+                <p id="hero-sub">ESPECIALISTA EN CIBERSEGURIDAD</p>
+                <div class="id-badge">ID: 7E9-ITB-SEC // SYSTEM ONLINE</div>
             </div>
 
             <div class="selected-section">
-                <span class="section-label" id="sel-label">> SELECTED PROJECTS</span>
+                <span class="section-label" id="sel-label">> MÓDULOS DESTACADOS</span>
                 <div class="mini-grid">
                     <div class="mini-card" onclick="launch(0)">
                         <div class="mini-card-title">SHA-256 HASHER</div>
@@ -57,84 +64,82 @@
 
         <div id="projects-view">
             <div class="filter-bar">
-                <input type="text" id="search-input" class="search-box" placeholder="" oninput="applyFilters()">
+                <input type="text" id="search-input" class="search-box" placeholder="Buscar..." oninput="applyFilters()">
                 <div class="filter-btns">
-                    <button class="btn" id="f-all" onclick="setFilter('all')"></button>
-                    <button class="btn" id="f-func" onclick="setFilter('func')"></button>
-                    <button class="btn" id="f-cripto" onclick="setFilter('Cripto')"></button>
-                    <button class="btn" id="f-net" onclick="setFilter('Net')"></button>
-                    <button class="btn" id="f-conv" onclick="setFilter('Conv')"></button>
+                    <button class="btn" id="f-all" onclick="setFilter('all')">TODOS</button>
+                    <button class="btn" id="f-func" onclick="setFilter('func')">FUNCIONALES</button>
+                    <button class="btn" id="f-cripto" onclick="setFilter('Cripto')">CRIPTO</button>
+                    <button class="btn" id="f-net" onclick="setFilter('Net')">REDES</button>
+                    <button class="btn" id="f-conv" onclick="setFilter('Conv')">TOOLS</button>
                 </div>
             </div>
             <div id="grid-container" class="grid-container"></div>
         </div>
 
         <div id="contact-view">
-            <h3 id="c-title" style="color:var(--accent); border-bottom: 1px solid var(--accent); padding-bottom:10px; margin-top:0;"></h3>
+            <h3 id="c-title" class="section-title">CONTACTO</h3>
             
             <div class="contact-layout">
-                <div class="tool-box" style="border:none; background:transparent; padding:0;">
-                    <div style="margin-bottom: 15px;">
-                        <p style="margin:5px 0">> <span id="l-name"></span> Jheremy Sánchez</p>
-                        <p style="margin:5px 0">> EMAIL: jheremy.sanchez.7e9@itb.cat</p>
+                <div class="contact-left">
+                    <div class="agent-info">
+                        <p>> <span id="l-name">AGENTE:</span> Jheremy Sánchez</p>
+                        <p>> EMAIL: jheremy.sanchez.7e9@itb.cat</p>
                     </div>
                     
                     <div class="contact-form">
-                        <label id="lbl-name" style="font-size:10px; color:#666">NOMBRE</label>
-                        <input type="text" id="form-name" placeholder="">
+                        <input type="text" id="form-name" placeholder="Nombre">
+                        <input type="email" id="form-email" placeholder="Email">
                         
-                        <label id="lbl-email" style="font-size:10px; color:#666">EMAIL</label>
-                        <input type="email" id="form-email" placeholder="user@domain.com">
-
-                        <label id="lbl-phone" style="font-size:10px; color:#666">TELÉFONO</label>
-                        <div class="phone-input-group">
-                            <select id="form-prefix" class="phone-prefix">
-                                <option value="+34">🇪🇸 +34</option>
-                                <option value="+1">🇺🇸 +1</option>
-                                <option value="+44">🇬🇧 +44</option>
-                                <option value="+33">🇫🇷 +33</option>
-                                <option value="+49">🇩🇪 +49</option>
-                                <option value="+212">🇲🇦 +212</option>
+                        <div class="phone-group">
+                            <select id="form-prefix">
+                                <option value="+34">ES +34</option>
+                                <option value="+1">US +1</option>
+                                <option value="+44">UK +44</option>
+                                <option value="+33">FR +33</option>
                             </select>
-                            <input type="tel" id="form-phone" placeholder="000 000 000" style="margin-bottom:10px;">
+                            <input type="tel" id="form-phone" placeholder="Teléfono">
                         </div>
 
-                        <label id="lbl-desc" style="font-size:10px; color:#666">MOTIVO / MENSAJE</label>
-                        <textarea id="form-desc" rows="4" placeholder=""></textarea>
+                        <textarea id="form-desc" rows="4" placeholder="Mensaje"></textarea>
                         
-                        <button class="btn" id="c-btn-send" style="width:100%; border-color:var(--accent); color:var(--accent)" onclick="sendContact()"></button>
+                        <button class="btn action-btn" id="c-btn-send" onclick="sendContact()">ENVIAR</button>
                     </div>
                 </div>
 
                 <div class="map-container">
-                    <div style="margin-bottom:5px; font-size:11px; color:var(--accent)">
-                        > TARGET: INSTITUT TECNOLÒGIC DE BARCELONA
-                    </div>
-                    <iframe class="map-frame" 
-                        src="https://maps.google.com/maps?q=Institut+Tecnol%C3%B2gic+de+Barcelona&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-                        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    <iframe 
+                        class="map-frame" 
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=2.1800,41.4200,2.2000,41.4400&amp;layer=mapnik&amp;marker=41.4320,2.1900" 
+                        allowfullscreen>
                     </iframe>
+                    <div class="map-overlay">TARGET: BARCELONA [ITB]</div>
                 </div>
             </div>
             
-            <button class="btn" id="c-back" style="margin-top:10px" onclick="showHome()"></button>
+            <button class="btn back-btn" id="c-back" onclick="showHome()">← VOLVER</button>
         </div>
 
         <div id="app-view">
-            <div id="app-header" style="margin-bottom:10px; font-weight:bold; color:var(--accent)"></div>
+            <div id="app-header" class="app-header"></div>
+            <div id="app-desc" class="app-desc"></div>
             <div class="tool-box" id="ui"></div>
-            <button class="btn" id="app-close-btn" style="margin-top:10px" onclick="showProjects()"></button>
+            <button class="btn back-btn" id="app-close-btn" onclick="showProjects()">CERRAR MÓDULO</button>
         </div>
     </div>
 
     <div class="footer">
-        <button class="btn" onclick="showHome()" id="nav-h"></button>
-        <button class="btn" onclick="showProjects()" id="nav-p"></button>
-        <button class="btn" onclick="showContact()" id="nav-c"></button>
+        <div class="footer-nav">
+            <button class="btn" onclick="showHome()" id="nav-h">INICIO</button>
+            <button class="btn" onclick="showProjects()" id="nav-p">PROYECTOS</button>
+            <button class="btn" onclick="showContact()" id="nav-c">CONTACTO</button>
+        </div>
+        <div class="footer-copy">
+            © <span id="current-year"></span> JHEREMY SÁNCHEZ - ALL RIGHTS RESERVED
+        </div>
     </div>
 </div>
 
-<script src="js/data.js"></script>
+<script src="js/date.js"></script>
 <script src="js/main.js"></script>
 
 </body>
