@@ -1,10 +1,143 @@
-// State Variables
+/**
+ * ------------------------------------------------------------------
+ * CONFIGURATION & LOCALIZATION
+ * ------------------------------------------------------------------
+ */
+const langDict = {
+    es: {
+        sub: "ESPECIALISTA EN CIBERSEGURIDAD", h: "INICIO", p: "PROYECTOS", c: "CONTACTO",
+        all: "TODOS", func: "FUNCIONALES", cripto: "CRIPTO", net: "REDES", conv: "TOOLS",
+        cTitle: "CONTACTO", send: "ENVIAR MENSAJE", back: "← VOLVER", close: "CERRAR MÓDULO",
+        lName: "AGENTE:",
+        labels: { n: "Nombre", e: "Email", p: "Teléfono", d: "Mensaje" },
+        sPlaceholder: "Buscar proyecto...",
+        wait: "Esperando entrada...", write: "Escriba aquí...",
+        scan: "INICIAR RASTREO DE IP", tracking: "CONECTANDO CON SATÉLITE...",
+        gen: "GENERAR", dev: "ERROR: MÓDULO EN DESARROLLO (NO DISPONIBLE)",
+        selProj: "> MÓDULOS DESTACADOS",
+        roles: ["ESTUDIANTE", "PENTESTER", "ADMIN DE REDES", "DEV WEB"]
+    },
+    en: {
+        sub: "CYBERSECURITY SPECIALIST", h: "HOME", p: "WORK", c: "CONTACT",
+        all: "ALL", func: "WORKING", cripto: "CRYPTO", net: "NETWORK", conv: "TOOLS",
+        cTitle: "CONTACT", send: "SEND MESSAGE", back: "← BACK", close: "CLOSE MODULE",
+        lName: "AGENT:",
+        labels: { n: "Name", e: "Email", p: "Phone", d: "Message" },
+        sPlaceholder: "Search project...",
+        wait: "Awaiting input...", write: "Type here...",
+        scan: "START IP TRACKING", tracking: "CONNECTING TO SATELLITE...",
+        gen: "GENERATE", dev: "ERROR: MODULE IN DEVELOPMENT (N/A)",
+        selProj: "> FEATURED MODULES",
+        roles: ["STUDENT", "PENTESTER", "NETWORK ADMIN", "WEB DEV"]
+    },
+    ca: {
+        sub: "ESPECIALISTA EN CIBERSEGURETAT", h: "INICI", p: "PROJECTES", c: "CONTACTE",
+        all: "TOTS", func: "FUNCIONALS", cripto: "CRIPTO", net: "XARXES", conv: "EINES",
+        cTitle: "CONTACTE", send: "ENVIAR MISSATGE", back: "← TORNAR", close: "TANCAR MÒDUL",
+        lName: "AGENT:",
+        labels: { n: "Nom", e: "Email", p: "Telèfon", d: "Missatge" },
+        sPlaceholder: "Cercar projecte...",
+        wait: "Esperant dades...", write: "Escriu aquí...",
+        scan: "INICIAR RASTREIG", tracking: "CONNECTANT AMB SATÈL·LIT...",
+        gen: "GENERAR", dev: "ERROR: MÒDUL EN DESENVOLUPAMENT (N/A)",
+        selProj: "> MÒDULS DESTACATS",
+        roles: ["ESTUDIANT", "PENTESTER", "ADMIN XARXES", "DEV WEB"]
+    },
+    fr: {
+        sub: "SPÉCIALISTE EN CYBERSÉCURITÉ", h: "ACCUEIL", p: "PROJETS", c: "CONTACT",
+        all: "TOUS", func: "FONCTIONNEL", cripto: "CRYPTO", net: "RÉSEAU", conv: "OUTILS",
+        cTitle: "CONTACT", send: "ENVOYER", back: "← RETOUR", close: "FERMER",
+        lName: "AGENT:",
+        labels: { n: "Nom", e: "Email", p: "Téléphone", d: "Message" },
+        sPlaceholder: "Chercher...",
+        wait: "En attente...", write: "Écrire ici...",
+        scan: "TRACER IP", tracking: "CONNEXION...",
+        gen: "GÉNÉRER", dev: "ERREUR: MODULE EN DÉVELOPPEMENT",
+        selProj: "> MODULES EN VEDETTE",
+        roles: ["ÉTUDIANT", "PENTESTER", "ADMIN RÉSEAU", "DEV WEB"]
+    },
+    de: {
+        sub: "IT-SICHERHEITSSPEZIALIST", h: "HOME", p: "PROJEKTE", c: "KONTAKT",
+        all: "ALLE", func: "LAUFFÄHIG", cripto: "KRYPTO", net: "NETZWERK", conv: "TOOLS",
+        cTitle: "KONTAKT", send: "SENDEN", back: "← ZURÜCK", close: "SCHLIESSEN",
+        lName: "AGENT:",
+        labels: { n: "Name", e: "Email", p: "Telefon", d: "Nachricht" },
+        sPlaceholder: "Suche...",
+        wait: "Warten...", write: "Hier tippen...",
+        scan: "IP TRACKEN", tracking: "VERBINDUNG...",
+        gen: "GENERIEREN", dev: "FEHLER: IN ENTWICKLUNG",
+        selProj: "> HIGHLIGHTS",
+        roles: ["STUDENT", "PENTESTER", "NETZWERK ADMIN", "WEB DEV"]
+    }
+};
+
+const projects = [
+    {n:"SHA-256 Hasher", c:"Cripto", f:true},
+    {n:"Base64 Encoder", c:"Conv", f:true},
+    {n:"IP Tracker", c:"Net", f:true},
+    {n:"Binary Converter", c:"Conv", f:true},
+    {n:"Morse Code", c:"Conv", f:true},
+    {n:"HEX Viewer", c:"Conv", f:true},
+    {n:"MAC Generator", c:"Net", f:true},
+    {n:"Subnet Calc", c:"Net", f:false},
+    {n:"Port Scanner", c:"Net", f:false},
+    {n:"SQL Injector", c:"Web", f:false},
+    {n:"Steganography", c:"Cripto", f:false},
+    {n:"Password Gen", c:"Cripto", f:false}
+];
+
 let currentAppIndex = -1;
 let activeFilter = 'all';
+let typeWriterInterval;
+let typeWriterTimeout;
 
 /**
  * ------------------------------------------------------------------
- * CORE UI FUNCTIONS
+ * DYNAMIC ROLE TYPING EFFECT (BUG FREE)
+ * ------------------------------------------------------------------
+ */
+function initTypeWriter(roles) {
+    const el = document.getElementById('dynamic-role');
+    if(!el) return;
+    
+    // 1. Limpiar cualquier proceso anterior
+    clearTimeout(typeWriterTimeout);
+    el.innerText = "";
+    
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    function type() {
+        const currentRole = roles[roleIndex];
+        
+        if (isDeleting) {
+            el.innerText = "> " + currentRole.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            el.innerText = "> " + currentRole.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        let speed = isDeleting ? 30 : 100;
+
+        if (!isDeleting && charIndex === currentRole.length) {
+            speed = 2000; // Pausa al final de la palabra
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            speed = 500;
+        }
+
+        typeWriterTimeout = setTimeout(type, speed);
+    }
+    type();
+}
+
+/**
+ * ------------------------------------------------------------------
+ * UI FUNCTIONS
  * ------------------------------------------------------------------
  */
 function hideAll() {
@@ -13,59 +146,70 @@ function hideAll() {
     });
 }
 
-function showHome() { 
-    currentAppIndex = -1; hideAll(); 
-    document.getElementById("home-view").style.display = "flex"; 
-}
-
-function showProjects() { 
-    currentAppIndex = -1; hideAll(); 
-    document.getElementById("projects-view").style.display = "flex"; 
-    applyFilters(); 
-}
-
-function showContact() { 
-    currentAppIndex = -1; hideAll(); 
-    document.getElementById("contact-view").style.display = "flex"; 
-}
+function showHome() { currentAppIndex = -1; hideAll(); document.getElementById("home-view").style.display = "flex"; }
+function showProjects() { currentAppIndex = -1; hideAll(); document.getElementById("projects-view").style.display = "flex"; applyFilters(); }
+function showContact() { currentAppIndex = -1; hideAll(); document.getElementById("contact-view").style.display = "flex"; }
 
 function changeLang() {
     const l = document.getElementById('lang-select').value;
-    const d = langDict[l];
-    
+    const d = langDict[l] || langDict['en'];
+
+    // UI Estática
     document.getElementById('hero-sub').innerText = d.sub;
     document.getElementById('nav-h').innerText = d.h;
     document.getElementById('nav-p').innerText = d.p;
     document.getElementById('nav-c').innerText = d.c;
+    document.getElementById('sel-label').innerText = d.selProj;
+    
+    // Filtros
     document.getElementById('f-all').innerText = d.all;
     document.getElementById('f-func').innerText = d.func;
     document.getElementById('f-cripto').innerText = d.cripto;
     document.getElementById('f-net').innerText = d.net;
     document.getElementById('f-conv').innerText = d.conv;
+
+    // Contacto
     document.getElementById('c-title').innerText = d.cTitle;
     document.getElementById('c-btn-send').innerText = d.send;
     document.getElementById('c-back').innerText = d.back;
-    document.getElementById('app-close-btn').innerText = d.close;
     document.getElementById('l-name').innerText = d.lName;
-    document.getElementById('search-input').placeholder = d.sPlaceholder;
-    document.getElementById('sel-label').innerText = d.selProj;
-    
-    document.getElementById('lbl-name').innerText = d.labels.n;
-    document.getElementById('lbl-email').innerText = d.labels.e;
-    document.getElementById('lbl-phone').innerText = d.labels.p;
-    document.getElementById('lbl-desc').innerText = d.labels.d;
-    document.getElementById('form-name').placeholder = d.pName;
-    document.getElementById('form-desc').placeholder = d.pDesc;
+    document.getElementById('form-name').placeholder = d.labels.n;
+    document.getElementById('form-email').placeholder = d.labels.e;
+    document.getElementById('form-phone').placeholder = d.labels.p;
+    document.getElementById('form-desc').placeholder = d.labels.d;
 
+    // App
+    document.getElementById('app-close-btn').innerText = d.close;
+    document.getElementById('search-input').placeholder = d.sPlaceholder;
+
+    // Reiniciar TypeWriter
+    initTypeWriter(d.roles);
+
+    // Actualizar filtros y fecha
     applyFilters();
-    updateDate();
-    
-    if(currentAppIndex !== -1) launch(currentAppIndex, true);
+    if(typeof updateDate === "function") updateDate();
 }
 
-function updateDate() {
-    const now = new Date();
-    document.getElementById('date-display').innerText = now.toISOString().split('T')[0];
+function applyFilters() {
+    const search = document.getElementById("search-input").value.toLowerCase();
+    const grid = document.getElementById("grid-container");
+    const l = document.getElementById('lang-select').value;
+    
+    const filtered = projects.filter(p => {
+        return p.n.toLowerCase().includes(search) &&
+               (activeFilter === 'all' || (activeFilter === 'func' && p.f) || p.c === activeFilter);
+    });
+
+    grid.innerHTML = filtered.map(p => {
+        const originalIndex = projects.indexOf(p);
+        const color = p.f ? 'var(--text)' : '#555';
+        return `
+            <div class="card" onclick="launch(${originalIndex})">
+                ${!p.f ? '<span class="badge">DEV</span>' : ''}
+                <div style="color:${color}; font-weight:600; margin-bottom:5px;">${p.n}</div>
+                <div style="font-size:10px; opacity:0.6">[ ${p.c} ]</div>
+            </div>`;
+    }).join('');
 }
 
 function setFilter(f) {
@@ -75,203 +219,144 @@ function setFilter(f) {
     applyFilters();
 }
 
-function applyFilters() {
-    const l = document.getElementById('lang-select').value;
-    const search = document.getElementById("search-input").value.toLowerCase();
-    const grid = document.getElementById("grid-container");
-    
-    const filtered = projects.filter(p => {
-        const matchSearch = p.n.toLowerCase().includes(search);
-        let matchCat = (activeFilter === 'all') || (activeFilter === 'func' && p.f) || (p.c === activeFilter);
-        return matchSearch && matchCat;
-    });
-
-    grid.innerHTML = filtered.map(p => {
-        const idx = projects.findIndex(orig => orig.n === p.n);
-        const catName = langDict[l].cat[p.c] || p.c;
-        const color = p.f ? 'var(--accent)' : '#666';
-        return `
-            <div class="card" onclick="launch(${idx})">
-                ${!p.f ? '<span class="badge">DEV</span>' : ''}
-                <div style="color:${color}; font-weight:bold; margin-bottom:5px;">${p.n}</div>
-                <div style="font-size:10px; opacity:0.7">[ ${catName} ]</div>
-            </div>`;
-    }).join('');
-}
-
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
+    const btn = document.getElementById('theme-btn');
+    btn.innerText = document.body.classList.contains('light-mode') ? '☾' : '☀';
 }
 
 function sendContact() {
     const name = document.getElementById('form-name').value;
-    const email = document.getElementById('form-email').value;
-    const prefix = document.getElementById('form-prefix').value;
-    const phone = document.getElementById('form-phone').value;
+    if(name) alert(`OK: Message from ${name} queued for transmission.`);
+    else alert("ERROR: Name required.");
+}
+
+/**
+ * ------------------------------------------------------------------
+ * APP LOGIC ENGINE
+ * ------------------------------------------------------------------
+ */
+async function launch(i) {
+    hideAll();
+    currentAppIndex = i;
+    const l = document.getElementById('lang-select').value;
+    const d = langDict[l] || langDict['en'];
+    const p = projects[i];
     
-    if(name && email) {
-        alert(`ENCRYPTED PACKET SENT TO: 7E9-ITB-SEC\nFROM: ${name}\nCONTACT: ${email} / ${prefix} ${phone}`);
-        document.getElementById('form-name').value = "";
-        document.getElementById('form-email').value = "";
-        document.getElementById('form-phone').value = "";
-        document.getElementById('form-desc').value = "";
-    } else {
-        alert("ERROR: MISSING REQUIRED FIELDS (NAME/EMAIL)");
+    document.getElementById("app-view").style.display = "flex";
+    document.getElementById("app-header").innerText = p.n;
+    document.getElementById("app-desc").innerText = p.f ? "// STATUS: ACTIVE" : "// STATUS: OFFLINE";
+
+    const ui = document.getElementById("ui");
+    ui.innerHTML = "";
+
+    if(!p.f) {
+        ui.innerHTML = `<div class="terminal-output" style="color:var(--alert)">${d.dev}</div>`;
+        return;
+    }
+
+    // --- FUNCTIONAL PROJECTS ---
+    
+    if(p.n === "IP Tracker") {
+        ui.innerHTML = `
+            <button class="btn action-btn" onclick="runIpScan()">${d.scan}</button>
+            <div style="margin-top:10px; height:2px; background:var(--border); width:100%"><div id="load-bar" style="height:100%; width:0%; background:var(--accent); transition:width 1s"></div></div>
+            <div class="terminal-output" id="out">${d.wait}</div>
+        `;
+    } 
+    
+    else if (p.n === "SHA-256 Hasher") {
+        ui.innerHTML = `<textarea id="i-text" rows="3" placeholder="${d.write}"></textarea><div class="terminal-output" id="r-out">${d.wait}</div>`;
+        document.getElementById('i-text').addEventListener('input', async function() {
+            if(!this.value) { document.getElementById('r-out').innerText = d.wait; return; }
+            const msgBuffer = new TextEncoder().encode(this.value);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            document.getElementById('r-out').innerText = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        });
+    }
+
+    else if (p.n === "Base64 Encoder") {
+        ui.innerHTML = `<textarea id="i-text" rows="3" placeholder="${d.write}"></textarea><div class="terminal-output" id="r-out">${d.wait}</div>`;
+        document.getElementById('i-text').addEventListener('input', function() {
+            try {
+                document.getElementById('r-out').innerText = btoa(this.value);
+            } catch(e) {
+                document.getElementById('r-out').innerText = "Typing...";
+            }
+        });
+    }
+
+    else if (p.n === "Binary Converter") {
+        ui.innerHTML = `<input type="text" id="i-text" placeholder="${d.write}"><div class="terminal-output" id="r-out">${d.wait}</div>`;
+        document.getElementById('i-text').addEventListener('input', function() {
+            document.getElementById('r-out').innerText = this.value.split('').map(c=>c.charCodeAt(0).toString(2).padStart(8,'0')).join(' ');
+        });
+    }
+    
+    else if (p.n === "MAC Generator") {
+        ui.innerHTML = `<button class="btn action-btn" id="gen-mac">${d.gen}</button><div class="terminal-output" id="r-out">${d.wait}</div>`;
+        document.getElementById('gen-mac').onclick = function() {
+            const hex = "0123456789ABCDEF";
+            let mac = "XX:XX:XX:XX:XX:XX".replace(/X/g, () => hex.charAt(Math.floor(Math.random()*16)));
+            document.getElementById('r-out').innerText = `MAC ADDRESS:\n${mac}`;
+        };
+    }
+
+    else if (p.n === "Morse Code") {
+        ui.innerHTML = `<input id="i-text" placeholder="${d.write}"><div class="terminal-output" id="r-out">${d.wait}</div>`;
+        const m = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', '1':'.----', '2':'..---', '3':'...--', '4':'....-', '5':'.....', '0':'-----', ' ': '/'};
+        document.getElementById('i-text').addEventListener('input', function() {
+            document.getElementById('r-out').innerText = this.value.toUpperCase().split('').map(c => m[c] || '?').join(' ');
+        });
+    }
+
+    else if (p.n === "HEX Viewer") {
+        ui.innerHTML = `<input id="i-text" placeholder="${d.write}"><div class="terminal-output" id="r-out">${d.wait}</div>`;
+        document.getElementById('i-text').addEventListener('input', function() {
+            document.getElementById('r-out').innerText = this.value.split('').map(c => "0x" + c.charCodeAt(0).toString(16).toUpperCase()).join(' ');
+        });
     }
 }
 
 /**
  * ------------------------------------------------------------------
- * APPLICATION LAUNCHER
+ * EXTERNAL API LOGIC (IP SCANNER)
  * ------------------------------------------------------------------
  */
-async function launch(i, isRefresh = false) {
-    if(!isRefresh) hideAll();
-    currentAppIndex = i;
+window.runIpScan = async function() {
     const l = document.getElementById('lang-select').value;
-    const d = langDict[l];
-    const appView = document.getElementById("app-view");
-    const p = projects[i];
+    const d = langDict[l] || langDict['en'];
+    const out = document.getElementById('out');
+    const bar = document.getElementById('load-bar');
     
-    appView.style.display = "flex";
-    document.getElementById("app-header").innerText = `> EXEC: ${p.n}`;
-    const ui = document.getElementById("ui");
+    out.innerText = d.tracking;
+    bar.style.width = "50%";
     
-    if (!p.f) { 
-        ui.innerHTML = `
-            <div class="terminal-output" style="border-color:var(--alert); color:var(--alert)">
-                ${d.dev}
-                <br><br>
-                KERNEL_PANIC: MODULE_NOT_LINKED
-            </div>`; 
-        return; 
-    }
-
-    switch(p.n) {
-        case "IP Tracker":
-            ui.innerHTML = `
-                <button class="btn" style="width:100%; margin-bottom:10px;" id="scan-btn">${d.scan}</button>
-                <div class="loading-bar" id="load-bar"></div>
-                <div class="terminal-output" id="r">${d.wait}</div>
+    try {
+        // Intentar obtener IP real
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        
+        bar.style.width = "100%";
+        setTimeout(() => {
+            out.innerHTML = `
+<span style="color:var(--text)">TARGET IDENTIFIED:</span>
+IP ADDR : ${data.ip}
+LOC     : Barcelona, Spain (Simulated)
+ISP     : ITB Secure Network
+STATUS  : EXPOSED
             `;
-            document.getElementById('scan-btn').onclick = async function() {
-                const r = document.getElementById('r');
-                const bar = document.getElementById('load-bar');
-                r.innerText = d.tracking;
-                bar.style.width = "50%";
-                try {
-                    const response = await fetch('https://ipwho.is/');
-                    const data = await response.json();
-                    bar.style.width = "100%";
-                    if(data.success) {
-                        setTimeout(() => {
-                            r.innerHTML = `
-<span style="color:#fff">TARGET ACQUIRED:</span>
-----------------------------------------
-IP ADDR : ${data.ip}  <span style="color:var(--accent)">[REAL]</span>
-ISP     : ${data.connection.isp || data.connection.org}
-TYPE    : ${data.type}
-----------------------------------------
-<span style="color:#fff">GEOLOCATION (FIXED):</span>
-LOC     : ${d.spoof_loc}
-LAT/LON : 41.3851, 2.1734
-ZONE    : Europe/Madrid
-----------------------------------------
-STATUS  : ENCRYPTED_TUNNEL_ACTIVE
-                            `;
-                        }, 500); 
-                    } else { throw new Error("API Error"); }
-                } catch (e) {
-                    bar.style.width = "100%";
-                    bar.style.backgroundColor = "red";
-                    r.innerText = "ERROR: FIREWALL BLOCKING CONNECTION.\nTRY DISABLING AD-BLOCKER.";
-                }
-            };
-            break;
-
-        case "SHA-256 Hasher":
-            ui.innerHTML = `<textarea id="i" rows="3" placeholder="${d.write}"></textarea><div class="terminal-output" id="r">${d.wait}</div>`;
-            document.getElementById('i').oninput = async function() {
-                if(!this.value) { document.getElementById('r').innerText = d.wait; return; }
-                const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(this.value));
-                document.getElementById('r').innerText = Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
-            };
-            break;
-
-        case "Base64 Encoder":
-            ui.innerHTML = `<textarea id="i" rows="3" placeholder="${d.write}"></textarea><div class="terminal-output" id="r">${d.wait}</div>`;
-            document.getElementById('i').oninput = function() {
-                try { document.getElementById('r').innerText = btoa(this.value); } catch(e) { document.getElementById('r').innerText = "INVALID_STRING"; }
-            };
-            break;
-
-        case "Binary Converter":
-            ui.innerHTML = `<input type="text" id="i" placeholder="${d.write}" style="width:100%; background:#111; color:#fff; border:1px solid #444; padding:10px;"><div class="terminal-output" id="r">${d.wait}</div>`;
-            document.getElementById('i').oninput = function() {
-                document.getElementById('r').innerText = this.value.split('').map(c=>c.charCodeAt(0).toString(2).padStart(8,'0')).join(' ');
-            };
-            break;
-
-        case "MAC Generator":
-            ui.innerHTML = `<button class="btn" style="width:100%" id="gen-btn">${d.gen}</button><div class="terminal-output" id="r">${d.wait}</div>`;
-            document.getElementById('gen-btn').onclick = function() {
-                const hex = "0123456789ABCDEF";
-                let mac = "XX:XX:XX:XX:XX:XX".replace(/X/g, () => hex.charAt(Math.floor(Math.random()*16)));
-                document.getElementById('r').innerText = `GENERATED MAC:\n${mac}\n\nVENDOR: VIRTUAL_INTERFACE`;
-            };
-            break;
-            
-        case "Morse Code":
-            ui.innerHTML = `<input id="i" placeholder="${d.write}" style="width:100%; background:#111; color:#fff; border:1px solid #444; padding:10px;"><div class="terminal-output" id="r">${d.wait}</div>`;
-            const m = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', '1':'.----', '2':'..---', '3':'...--', '4':'....-', '5':'.....', '0':'-----', ' ': '/'};
-            document.getElementById('i').oninput = function() {
-                document.getElementById('r').innerText = this.value.toUpperCase().split('').map(c => m[c] || '?').join(' ');
-            };
-            break;
-
-        case "HEX Viewer":
-            ui.innerHTML = `<input id="i" placeholder="${d.write}" style="width:100%; background:#111; color:#fff; border:1px solid #444; padding:10px;"><div class="terminal-output" id="r">${d.wait}</div>`;
-            document.getElementById('i').oninput = function() {
-                document.getElementById('r').innerText = this.value.split('').map(c => "0x" + c.charCodeAt(0).toString(16).toUpperCase()).join(' ');
-            };
-            break;
+        }, 800);
+    } catch (e) {
+        // Fallback si falla (ej. AdBlock)
+        bar.style.width = "100%";
+        setTimeout(() => {
+            out.innerText = "CONNECTION ERROR: FIREWALL DETECTED.\nDISPLAYING LOCALHOST INFO.\n\nIP: 127.0.0.1";
+        }, 800);
     }
 }
 
-// --- NEW FUNCTION: HEADER TYPEWRITER EFFECT ---
-const headerRoles = ["SYSTEM.ROOT", "SYSADMIN_STUDENT", "NETWORK_OP", "PYTHON_DEV", "SEC_ANALYST"];
-let hRoleIdx = 0;
-let hCharIdx = 0;
-let hIsDeleting = false;
-const headerElement = document.getElementById("header-role");
-
-function headerTypeEffect() {
-    const current = headerRoles[hRoleIdx];
-    
-    if (hIsDeleting) {
-        headerElement.innerText = current.substring(0, hCharIdx - 1);
-        hCharIdx--;
-    } else {
-        headerElement.innerText = current.substring(0, hCharIdx + 1);
-        hCharIdx++;
-    }
-
-    let typeSpeed = hIsDeleting ? 50 : 100;
-
-    if (!hIsDeleting && hCharIdx === current.length) {
-        typeSpeed = 2000; // Pause at end of word
-        hIsDeleting = true;
-    } else if (hIsDeleting && hCharIdx === 0) {
-        hIsDeleting = false;
-        hRoleIdx = (hRoleIdx + 1) % headerRoles.length;
-        typeSpeed = 500;
-    }
-
-    setTimeout(headerTypeEffect, typeSpeed);
-}
-
-// --- SYSTEM INITIALIZATION ---
-// Start the effect
-headerTypeEffect();
+// Inicialización
 changeLang();
 showHome();
